@@ -154,10 +154,10 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) rotate(-45deg);
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: rgba(0, 0, 0, 0.12);
-      letter-spacing: 0.2em;
+      font-size: 1rem;
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.05);
+      letter-spacing: 0.1em;
       pointer-events: none;
       white-space: nowrap;
       z-index: 2;
@@ -209,29 +209,26 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) rotate(-45deg);
-      font-size: 5rem;
-      font-weight: 900;
-      color: rgba(255, 255, 255, 0.35);
-      letter-spacing: 0.3em;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.15);
+      letter-spacing: 0.15em;
       pointer-events: none;
       white-space: nowrap;
       z-index: 10;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     }
 
-    /* Multiple watermarks for extra protection */
+    /* Small corner watermark */
     .lightbox-content::after {
-      content: "exploreduo • exploreduo • exploreduo";
+      content: "exploreduo";
       position: absolute;
-      bottom: 10%;
-      left: 50%;
-      transform: translateX(-50%) rotate(-5deg);
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: rgba(255, 255, 255, 0.25);
-      letter-spacing: 0.2em;
+      bottom: 20px;
+      right: 20px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.4);
+      letter-spacing: 0.1em;
       pointer-events: none;
-      white-space: nowrap;
       z-index: 10;
     }
 
