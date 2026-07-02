@@ -92,7 +92,7 @@
       padding: 2rem;
       text-align: center;
       transition: all 0.3s ease;
-      cursor: pointer;
+      cursor: zoom-in;
       position: relative;
       overflow: hidden;
     }
@@ -101,27 +101,6 @@
       transform: translateY(-8px);
       box-shadow: 0 20px 40px -15px rgba(58, 40, 27, 0.3);
       border-color: var(--orange);
-    }
-
-    .logo-card.selected {
-      border-color: var(--orange);
-      border-width: 3px;
-      background: linear-gradient(135deg, #FFF9F0, var(--white));
-      box-shadow: 0 10px 30px -10px rgba(232, 114, 12, 0.4);
-    }
-
-    .logo-card.selected::before {
-      content: "✓ SELECTED";
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: var(--orange);
-      color: white;
-      padding: 0.4rem 0.8rem;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 800;
-      letter-spacing: 0.05em;
     }
 
     .logo-number {
@@ -154,6 +133,98 @@
       max-width: 100%;
       max-height: 180px;
       object-fit: contain;
+      cursor: zoom-in;
+    }
+
+    /* Lightbox/Zoom Modal */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      cursor: zoom-out;
+      padding: 2rem;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 90%;
+      animation: zoomIn 0.3s ease;
+    }
+
+    .lightbox-image {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -50px;
+      right: 0;
+      background: var(--orange);
+      color: white;
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 2rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .lightbox-close:hover {
+      background: var(--orange-soft);
+      transform: rotate(90deg);
+    }
+
+    .lightbox-info {
+      position: absolute;
+      bottom: -80px;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .lightbox-title {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--brown-deep);
+      margin-bottom: 0.5rem;
+    }
+
+    .lightbox-desc {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
 
     .logo-info {
@@ -215,39 +286,7 @@
       background: var(--tan-soft);
     }
 
-    .selection-summary {
-      background: var(--white);
-      border: 2px solid var(--orange);
-      border-radius: 20px;
-      padding: 2rem;
-      margin-top: 3rem;
-      text-align: center;
-      display: none;
-    }
 
-    .selection-summary.show {
-      display: block;
-    }
-
-    .selection-summary h2 {
-      font-family: 'Fraunces', Georgia, serif;
-      color: var(--orange);
-      margin-bottom: 1rem;
-    }
-
-    .selected-logo-display {
-      display: inline-block;
-      background: var(--cream);
-      padding: 2rem;
-      border-radius: 12px;
-      margin: 1rem 0;
-      max-width: 400px;
-    }
-
-    .selected-logo-display img {
-      max-width: 100%;
-      max-height: 200px;
-    }
 
     @media (max-width: 768px) {
       .logo-grid {
@@ -277,15 +316,15 @@
 
     <div class="instructions">
       <strong>📋 Instructions:</strong>
-      <p>Click on any logo below to select it. You can change your selection anytime. Once decided, click "Confirm Selection" to proceed.</p>
+      <p>Click on any logo to view it in full size. Browse through all options and we'll discuss your favorites together.</p>
     </div>
 
     <div class="logo-grid" id="logoGrid">
       <!-- Logo Option 1 -->
-      <div class="logo-card" data-logo-id="1">
+      <div class="logo-card" data-logo-id="1" onclick="openLightbox(this)">
         <div class="logo-number">1</div>
         <div class="logo-image-container">
-          <img src="{% static 'img/logos/logo-1.png' %}" alt="Logo Option 1" class="logo-image">
+          <img src="{% static 'img/logos/logo-1.png' %}" alt="Logo Option 1" class="logo-image" data-name="Classic Waffle Icon" data-desc="Traditional waffle design with warm colors and friendly vibe">
         </div>
         <div class="logo-info">
           <div class="logo-name">Classic Waffle Icon</div>
@@ -294,10 +333,10 @@
       </div>
 
       <!-- Logo Option 2 -->
-      <div class="logo-card" data-logo-id="2">
+      <div class="logo-card" data-logo-id="2" onclick="openLightbox(this)">
         <div class="logo-number">2</div>
         <div class="logo-image-container">
-          <img src="{% static 'img/logos/logo-2.png' %}" alt="Logo Option 2" class="logo-image">
+          <img src="{% static 'img/logos/logo-2.png' %}" alt="Logo Option 2" class="logo-image" data-name="Modern Minimalist" data-desc="Clean lines and contemporary design for a modern café feel">
         </div>
         <div class="logo-info">
           <div class="logo-name">Modern Minimalist</div>
@@ -306,10 +345,10 @@
       </div>
 
       <!-- Logo Option 3 -->
-      <div class="logo-card" data-logo-id="3">
+      <div class="logo-card" data-logo-id="3" onclick="openLightbox(this)">
         <div class="logo-number">3</div>
         <div class="logo-image-container">
-          <img src="{% static 'img/logos/logo-3.png' %}" alt="Logo Option 3" class="logo-image">
+          <img src="{% static 'img/logos/logo-3.png' %}" alt="Logo Option 3" class="logo-image" data-name="Vintage Style" data-desc="Retro-inspired design with nostalgic charm">
         </div>
         <div class="logo-info">
           <div class="logo-name">Vintage Style</div>
@@ -318,10 +357,10 @@
       </div>
 
       <!-- Logo Option 4 -->
-      <div class="logo-card" data-logo-id="4">
+      <div class="logo-card" data-logo-id="4" onclick="openLightbox(this)">
         <div class="logo-number">4</div>
         <div class="logo-image-container">
-          <img src="{% static 'img/logos/logo-4.png' %}" alt="Logo Option 4" class="logo-image">
+          <img src="{% static 'img/logos/logo-4.png' %}" alt="Logo Option 4" class="logo-image" data-name="Playful & Fun" data-desc="Energetic design perfect for a youthful audience">
         </div>
         <div class="logo-info">
           <div class="logo-name">Playful & Fun</div>
@@ -330,10 +369,10 @@
       </div>
 
       <!-- Logo Option 5 -->
-      <div class="logo-card" data-logo-id="5">
+      <div class="logo-card" data-logo-id="5" onclick="openLightbox(this)">
         <div class="logo-number">5</div>
         <div class="logo-image-container">
-          <img src="{% static 'img/logos/logo-5.png' %}" alt="Logo Option 5" class="logo-image">
+          <img src="{% static 'img/logos/logo-5.png' %}" alt="Logo Option 5" class="logo-image" data-name="Premium Elegant" data-desc="Sophisticated design for an upscale café experience">
         </div>
         <div class="logo-info">
           <div class="logo-name">Premium Elegant</div>
@@ -342,10 +381,10 @@
       </div>
 
       <!-- Logo Option 6 -->
-      <div class="logo-card" data-logo-id="6">
+      <div class="logo-card" data-logo-id="6" onclick="openLightbox(this)">
         <div class="logo-number">6</div>
         <div class="logo-image-container">
-          <img src="{% static 'img/logos/logo-6.png' %}" alt="Logo Option 6" class="logo-image">
+          <img src="{% static 'img/logos/logo-6.png' %}" alt="Logo Option 6" class="logo-image" data-name="Bold & Strong" data-desc="Impactful design that stands out and makes a statement">
         </div>
         <div class="logo-info">
           <div class="logo-name">Bold & Strong</div>
@@ -354,89 +393,55 @@
       </div>
     </div>
 
-    <div class="selection-summary" id="selectionSummary">
-      <h2>✓ Your Selection</h2>
-      <p>You've selected <strong id="selectedLogoName">Logo #1</strong></p>
-      <div class="selected-logo-display" id="selectedLogoDisplay">
-        <img src="{% static 'img/logos/logo-1.png' %}" alt="Selected logo" id="selectedLogoImage">
-      </div>
+    <div class="action-buttons">
+      <a href="/" class="btn btn-secondary">Back to Website</a>
     </div>
 
-    <div class="action-buttons">
-      <button class="btn btn-primary" id="confirmBtn" onclick="confirmSelection()">Confirm Selection</button>
-      <a href="/" class="btn btn-secondary">Back to Website</a>
-      <button class="btn btn-secondary" id="resetBtn" onclick="resetSelection()">Reset Selection</button>
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+      <div class="lightbox-content" onclick="event.stopPropagation()">
+        <button class="lightbox-close" onclick="closeLightbox()">×</button>
+        <img src="" alt="Logo preview" class="lightbox-image" id="lightboxImage">
+        <div class="lightbox-info">
+          <div class="lightbox-title" id="lightboxTitle">Logo Name</div>
+          <div class="lightbox-desc" id="lightboxDesc">Logo description</div>
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
-    let selectedLogoId = null;
+    // Open lightbox with logo details
+    function openLightbox(card) {
+      const img = card.querySelector('.logo-image');
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightboxImage');
+      const lightboxTitle = document.getElementById('lightboxTitle');
+      const lightboxDesc = document.getElementById('lightboxDesc');
 
-    // Initialize
-    document.addEventListener('DOMContentLoaded', function() {
-      const logoCards = document.querySelectorAll('.logo-card');
-      
-      logoCards.forEach(card => {
-        card.addEventListener('click', function() {
-          selectLogo(this);
-        });
-      });
+      // Set image and info
+      lightboxImg.src = img.src;
+      lightboxTitle.textContent = img.getAttribute('data-name');
+      lightboxDesc.textContent = img.getAttribute('data-desc');
+
+      // Show lightbox
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close lightbox
+    function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeLightbox();
+      }
     });
-
-    function selectLogo(card) {
-      // Remove previous selection
-      document.querySelectorAll('.logo-card').forEach(c => {
-        c.classList.remove('selected');
-      });
-
-      // Add selection to clicked card
-      card.classList.add('selected');
-      selectedLogoId = card.getAttribute('data-logo-id');
-
-      // Update selection summary
-      const logoName = card.querySelector('.logo-name').textContent;
-      const logoImage = card.querySelector('.logo-image').src;
-      
-      document.getElementById('selectedLogoName').textContent = logoName;
-      document.getElementById('selectedLogoImage').src = logoImage;
-      document.getElementById('selectionSummary').classList.add('show');
-
-      // Scroll to summary
-      document.getElementById('selectionSummary').scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'nearest' 
-      });
-    }
-
-    function confirmSelection() {
-      if (!selectedLogoId) {
-        alert('Please select a logo first!');
-        return;
-      }
-
-      const logoName = document.getElementById('selectedLogoName').textContent;
-      
-      if (confirm(`Are you sure you want to select "${logoName}"?\n\nThis will be confirmed to the designer.`)) {
-        // Here you can send the selection to the server
-        alert(`✓ Thank you! You've confirmed: ${logoName}\n\nLogo ID: ${selectedLogoId}\n\nThe designer will be notified of your selection.`);
-        
-        // You can add AJAX call here to save selection
-        // Example:
-        // fetch('/save-logo-selection/', {
-        //   method: 'POST',
-        //   headers: { 'Content-Type': 'application/json' },
-        //   body: JSON.stringify({ logo_id: selectedLogoId })
-        // });
-      }
-    }
-
-    function resetSelection() {
-      document.querySelectorAll('.logo-card').forEach(card => {
-        card.classList.remove('selected');
-      });
-      document.getElementById('selectionSummary').classList.remove('show');
-      selectedLogoId = null;
-    }
   </script>
 </body>
 </html>
