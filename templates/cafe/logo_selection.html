@@ -15,6 +15,22 @@
       box-sizing: border-box;
     }
 
+    /* Disable text selection on entire page */
+    body {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    /* Allow text selection for text content only */
+    h1, h2, h3, p, span:not(.logo-name):not(.logo-description) {
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+    }
+
     :root {
       --brown: #5A3E2B;
       --brown-deep: #3A281B;
@@ -127,6 +143,24 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Watermark overlay */
+    .logo-image-container::after {
+      content: "exploreduo";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      font-size: 2rem;
+      font-weight: 800;
+      color: rgba(0, 0, 0, 0.08);
+      letter-spacing: 0.2em;
+      pointer-events: none;
+      white-space: nowrap;
+      z-index: 2;
     }
 
     .logo-image {
@@ -134,6 +168,11 @@
       max-height: 180px;
       object-fit: contain;
       cursor: zoom-in;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
     }
 
     /* Lightbox/Zoom Modal */
@@ -163,12 +202,33 @@
       animation: zoomIn 0.3s ease;
     }
 
+    /* Watermark on lightbox */
+    .lightbox-content::before {
+      content: "exploreduo";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      font-size: 4rem;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.15);
+      letter-spacing: 0.3em;
+      pointer-events: none;
+      white-space: nowrap;
+      z-index: 10;
+    }
+
     .lightbox-image {
       max-width: 100%;
       max-height: 90vh;
       object-fit: contain;
       border-radius: 8px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
     }
 
     .lightbox-close {
@@ -471,6 +531,44 @@
   </div>
 
   <script>
+    // Disable right-click on images
+    document.addEventListener('DOMContentLoaded', function() {
+      // Disable right-click
+      document.addEventListener('contextmenu', function(e) {
+        if (e.target.tagName === 'IMG') {
+          e.preventDefault();
+          return false;
+        }
+      });
+
+      // Disable drag
+      document.addEventListener('dragstart', function(e) {
+        if (e.target.tagName === 'IMG') {
+          e.preventDefault();
+          return false;
+        }
+      });
+
+      // Disable keyboard shortcuts for saving
+      document.addEventListener('keydown', function(e) {
+        // Ctrl+S or Cmd+S
+        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+          e.preventDefault();
+          return false;
+        }
+        // F12 (developer tools)
+        if (e.keyCode === 123) {
+          e.preventDefault();
+          return false;
+        }
+        // Ctrl+Shift+I or Cmd+Shift+I (inspect)
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'I') {
+          e.preventDefault();
+          return false;
+        }
+      });
+    });
+
     // Open lightbox with logo details
     function openLightbox(card) {
       const img = card.querySelector('.logo-image');
