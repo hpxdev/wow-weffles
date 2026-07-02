@@ -1,0 +1,102 @@
+==============================================
+WOW WEFFLES - PYTHONANYWHERE DEPLOYMENT
+==============================================
+
+COMMANDS TO DELETE OLD SITE ON PYTHONANYWHERE:
+----------------------------------------------
+
+# Step 1: Open Bash console on PythonAnywhere and run:
+
+ls -la
+# (See your current directories)
+
+rm -rf YOUR_OLD_PROJECT_FOLDER
+rm -rf venv
+rm -rf virtualenv
+
+# Step 2: Go to Web tab → Delete the old web app
+
+
+COMMANDS TO DEPLOY NEW SITE:
+----------------------------------------------
+
+# Step 1: Clone repository
+git clone https://github.com/YOUR_USERNAME/wow-weffles.git
+cd wow-weffles
+
+# Step 2: Create virtual environment
+mkvirtualenv --python=/usr/bin/python3.10 wowweffles-venv
+
+# Step 3: Install requirements
+pip install -r requirements.txt
+
+# Step 4: Update settings (use nano editor)
+nano wowweffles/settings.py
+
+# Change these lines:
+# ALLOWED_HOSTS = ['YOUR_USERNAME.pythonanywhere.com', 'localhost', '127.0.0.1']
+# DEBUG = False
+# Save with Ctrl+O, Enter, then Ctrl+X
+
+# Step 5: Collect static files
+python manage.py collectstatic --noinput
+
+# Step 6: Run migrations
+python manage.py migrate
+
+# Step 7: Create superuser
+python manage.py createsuperuser
+
+# Step 8: Seed menu (optional)
+python manage.py seed_menu
+
+
+WSGI CONFIGURATION FILE CONTENT:
+----------------------------------------------
+Copy this into your WSGI file on Web tab:
+
+import os
+import sys
+
+project_home = '/home/YOUR_USERNAME/wow-weffles'
+if project_home not in sys.path:
+    sys.path.insert(0, project_home)
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'wowweffles.settings'
+
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
+
+
+WEB TAB SETTINGS:
+----------------------------------------------
+
+Virtual environment:
+/home/YOUR_USERNAME/.virtualenvs/wowweffles-venv
+
+Static files mapping:
+URL: /static/
+Directory: /home/YOUR_USERNAME/wow-weffles/staticfiles
+
+
+AFTER MAKING CHANGES LOCALLY:
+----------------------------------------------
+
+# On your computer:
+git add .
+git commit -m "Your message"
+git push origin main
+
+# On PythonAnywhere Bash:
+cd wow-weffles
+git pull origin main
+python manage.py collectstatic --noinput
+
+# Then click Reload button on Web tab
+
+
+REMEMBER TO REPLACE:
+----------------------------------------------
+YOUR_USERNAME = Your PythonAnywhere username
+YOUR_OLD_PROJECT_FOLDER = Your old project folder name
+
