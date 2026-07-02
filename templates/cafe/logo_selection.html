@@ -108,7 +108,7 @@
       padding: 2rem;
       text-align: center;
       transition: all 0.3s ease;
-      cursor: zoom-in;
+      cursor: pointer;
       position: relative;
       overflow: hidden;
     }
@@ -167,7 +167,7 @@
       max-width: 100%;
       max-height: 180px;
       object-fit: contain;
-      cursor: zoom-in;
+      cursor: pointer;
       pointer-events: none;
       user-select: none;
       -webkit-user-select: none;
@@ -281,26 +281,7 @@
     }
 
     .lightbox-info {
-      position: absolute;
-      bottom: -80px;
-      left: 0;
-      right: 0;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 1rem;
-      border-radius: 12px;
-      text-align: center;
-    }
-
-    .lightbox-title {
-      font-weight: 700;
-      font-size: 1.2rem;
-      color: var(--brown-deep);
-      margin-bottom: 0.5rem;
-    }
-
-    .lightbox-desc {
-      color: var(--muted);
-      font-size: 0.9rem;
+      display: none;
     }
 
     @keyframes zoomIn {
@@ -403,7 +384,7 @@
 
     <div class="instructions">
       <strong>📋 Instructions:</strong>
-      <p>Click on any logo to view it in full size. Browse through all options and we'll discuss your favorites together.</p>
+      <p>Click on any logo to zoom and view details. Browse through all options and we'll discuss your favorites together.</p>
     </div>
 
     <div class="logo-grid" id="logoGrid">
@@ -411,11 +392,10 @@
       <div class="logo-card" data-logo-id="1" onclick="openLightbox(this)">
         <div class="logo-number">1</div>
         <div class="logo-image-container">
-          <img src="{% static 'logo/IMG_6352.PNG' %}" alt="Logo Option 1" class="logo-image" data-name="Logo Design #1" data-desc="Click to view in full size">
+          <img src="{% static 'logo/IMG_6352.PNG' %}" alt="Logo Option 1" class="logo-image">
         </div>
         <div class="logo-info">
           <div class="logo-name">Logo Design #1</div>
-          <div class="logo-description">Click to view in full size</div>
         </div>
       </div>
 
@@ -423,11 +403,10 @@
       <div class="logo-card" data-logo-id="2" onclick="openLightbox(this)">
         <div class="logo-number">2</div>
         <div class="logo-image-container">
-          <img src="{% static 'logo/IMG_6353.PNG' %}" alt="Logo Option 2" class="logo-image" data-name="Logo Design #2" data-desc="Click to view in full size">
+          <img src="{% static 'logo/IMG_6353.PNG' %}" alt="Logo Option 2" class="logo-image">
         </div>
         <div class="logo-info">
           <div class="logo-name">Logo Design #2</div>
-          <div class="logo-description">Click to view in full size</div>
         </div>
       </div>
 
@@ -435,11 +414,10 @@
       <div class="logo-card" data-logo-id="3" onclick="openLightbox(this)">
         <div class="logo-number">3</div>
         <div class="logo-image-container">
-          <img src="{% static 'logo/IMG_6354.PNG' %}" alt="Logo Option 3" class="logo-image" data-name="Logo Design #3" data-desc="Click to view in full size">
+          <img src="{% static 'logo/IMG_6354.PNG' %}" alt="Logo Option 3" class="logo-image">
         </div>
         <div class="logo-info">
           <div class="logo-name">Logo Design #3</div>
-          <div class="logo-description">Click to view in full size</div>
         </div>
       </div>
 
@@ -447,11 +425,10 @@
       <div class="logo-card" data-logo-id="4" onclick="openLightbox(this)">
         <div class="logo-number">4</div>
         <div class="logo-image-container">
-          <img src="{% static 'logo/IMG_6355.PNG' %}" alt="Logo Option 4" class="logo-image" data-name="Logo Design #4" data-desc="Click to view in full size">
+          <img src="{% static 'logo/IMG_6355.PNG' %}" alt="Logo Option 4" class="logo-image">
         </div>
         <div class="logo-info">
           <div class="logo-name">Logo Design #4</div>
-          <div class="logo-description">Click to view in full size</div>
         </div>
       </div>
 
@@ -459,11 +436,10 @@
       <div class="logo-card" data-logo-id="5" onclick="openLightbox(this)">
         <div class="logo-number">5</div>
         <div class="logo-image-container">
-          <img src="{% static 'logo/IMG_6356.PNG' %}" alt="Logo Option 5" class="logo-image" data-name="Logo Design #5" data-desc="Click to view in full size">
+          <img src="{% static 'logo/IMG_6356.PNG' %}" alt="Logo Option 5" class="logo-image">
         </div>
         <div class="logo-info">
           <div class="logo-name">Logo Design #5</div>
-          <div class="logo-description">Click to view in full size</div>
         </div>
       </div>
 
@@ -471,11 +447,10 @@
       <div class="logo-card" data-logo-id="6" onclick="openLightbox(this)">
         <div class="logo-number">6</div>
         <div class="logo-image-container">
-          <img src="{% static 'logo/IMG_6357.PNG' %}" alt="Logo Option 6" class="logo-image" data-name="Logo Design #6" data-desc="Click to view in full size">
+          <img src="{% static 'logo/IMG_6357.PNG' %}" alt="Logo Option 6" class="logo-image">
         </div>
         <div class="logo-info">
           <div class="logo-name">Logo Design #6</div>
-          <div class="logo-description">Click to view in full size</div>
         </div>
       </div>
 
@@ -483,11 +458,10 @@
       <div class="logo-card" data-logo-id="7" onclick="openLightbox(this)">
         <div class="logo-number">7</div>
         <div class="logo-image-container">
-          <img src="{% static 'logo/IMG_6358.PNG' %}" alt="Logo Option 7" class="logo-image" data-name="Logo Design #7" data-desc="Click to view in full size">
+          <img src="{% static 'logo/IMG_6358.PNG' %}" alt="Logo Option 7" class="logo-image">
         </div>
         <div class="logo-info">
           <div class="logo-name">Logo Design #7</div>
-          <div class="logo-description">Click to view in full size</div>
         </div>
       </div>
 
@@ -495,11 +469,10 @@
       <div class="logo-card" data-logo-id="8" onclick="openLightbox(this)">
         <div class="logo-number">8</div>
         <div class="logo-image-container">
-          <img src="{% static 'logo/IMG_6359.PNG' %}" alt="Logo Option 8" class="logo-image" data-name="Logo Design #8" data-desc="Click to view in full size">
+          <img src="{% static 'logo/IMG_6359.PNG' %}" alt="Logo Option 8" class="logo-image">
         </div>
         <div class="logo-info">
           <div class="logo-name">Logo Design #8</div>
-          <div class="logo-description">Click to view in full size</div>
         </div>
       </div>
 
@@ -507,11 +480,10 @@
       <div class="logo-card" data-logo-id="9" onclick="openLightbox(this)">
         <div class="logo-number">9</div>
         <div class="logo-image-container">
-          <img src="{% static 'logo/IMG_6360.PNG' %}" alt="Logo Option 9" class="logo-image" data-name="Logo Design #9" data-desc="Click to view in full size">
+          <img src="{% static 'logo/IMG_6360.PNG' %}" alt="Logo Option 9" class="logo-image">
         </div>
         <div class="logo-info">
           <div class="logo-name">Logo Design #9</div>
-          <div class="logo-description">Click to view in full size</div>
         </div>
       </div>
 
@@ -519,11 +491,10 @@
       <div class="logo-card" data-logo-id="10" onclick="openLightbox(this)">
         <div class="logo-number">10</div>
         <div class="logo-image-container">
-          <img src="{% static 'logo/IMG_6361.PNG' %}" alt="Logo Option 10" class="logo-image" data-name="Logo Design #10" data-desc="Click to view in full size">
+          <img src="{% static 'logo/IMG_6361.PNG' %}" alt="Logo Option 10" class="logo-image">
         </div>
         <div class="logo-info">
           <div class="logo-name">Logo Design #10</div>
-          <div class="logo-description">Click to view in full size</div>
         </div>
       </div>
 
@@ -531,11 +502,10 @@
       <div class="logo-card" data-logo-id="11" onclick="openLightbox(this)">
         <div class="logo-number">11</div>
         <div class="logo-image-container">
-          <img src="{% static 'logo/IMG_6362.PNG' %}" alt="Logo Option 11" class="logo-image" data-name="Logo Design #11" data-desc="Click to view in full size">
+          <img src="{% static 'logo/IMG_6362.PNG' %}" alt="Logo Option 11" class="logo-image">
         </div>
         <div class="logo-info">
           <div class="logo-name">Logo Design #11</div>
-          <div class="logo-description">Click to view in full size</div>
         </div>
       </div>
     </div>
@@ -549,10 +519,6 @@
       <div class="lightbox-content" onclick="event.stopPropagation()">
         <button class="lightbox-close" onclick="closeLightbox()">×</button>
         <img src="" alt="Logo preview" class="lightbox-image" id="lightboxImage">
-        <div class="lightbox-info">
-          <div class="lightbox-title" id="lightboxTitle">Logo Name</div>
-          <div class="lightbox-desc" id="lightboxDesc">Logo description</div>
-        </div>
       </div>
     </div>
   </div>
@@ -631,16 +597,11 @@
       const img = card.querySelector('.logo-image');
       const lightbox = document.getElementById('lightbox');
       const lightboxImg = document.getElementById('lightboxImage');
-      const lightboxTitle = document.getElementById('lightboxTitle');
-      const lightboxDesc = document.getElementById('lightboxDesc');
 
-      // Set image and info
+      // Set image
       lightboxImg.src = img.src;
       lightboxImg.setAttribute('oncontextmenu', 'return false');
       lightboxImg.setAttribute('ondragstart', 'return false');
-      
-      lightboxTitle.textContent = img.getAttribute('data-name');
-      lightboxDesc.textContent = img.getAttribute('data-desc');
 
       // Show lightbox
       lightbox.classList.add('active');
