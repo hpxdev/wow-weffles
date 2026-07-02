@@ -1,0 +1,442 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logo Selection - Wow Weffles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --brown: #5A3E2B;
+      --brown-deep: #3A281B;
+      --tan: #D8C3A5;
+      --tan-soft: #EADFCB;
+      --orange: #E8720C;
+      --orange-soft: #F79A44;
+      --cream: #FAF6EF;
+      --white: #FFFFFF;
+      --line: #E7DECF;
+      --muted: #6E6258;
+    }
+
+    body {
+      font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--cream);
+      color: var(--brown-deep);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 2px solid var(--line);
+    }
+
+    h1 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--brown-deep);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .instructions {
+      background: linear-gradient(135deg, var(--orange), var(--orange-soft));
+      color: white;
+      padding: 1.5rem;
+      border-radius: 16px;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .instructions strong {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .logo-card {
+      background: var(--white);
+      border: 2px solid var(--line);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px -15px rgba(58, 40, 27, 0.3);
+      border-color: var(--orange);
+    }
+
+    .logo-card.selected {
+      border-color: var(--orange);
+      border-width: 3px;
+      background: linear-gradient(135deg, #FFF9F0, var(--white));
+      box-shadow: 0 10px 30px -10px rgba(232, 114, 12, 0.4);
+    }
+
+    .logo-card.selected::before {
+      content: "✓ SELECTED";
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--orange);
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+
+    .logo-number {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--brown-deep);
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+
+    .logo-image-container {
+      background: var(--cream);
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-image {
+      max-width: 100%;
+      max-height: 180px;
+      object-fit: contain;
+    }
+
+    .logo-info {
+      margin-top: 1rem;
+    }
+
+    .logo-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--brown-deep);
+      margin-bottom: 0.5rem;
+    }
+
+    .logo-description {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: var(--orange);
+      color: white;
+      box-shadow: 0 10px 25px -10px rgba(232, 114, 12, 0.5);
+    }
+
+    .btn-primary:hover {
+      background: var(--orange-soft);
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px -10px rgba(232, 114, 12, 0.6);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--brown-deep);
+      border: 2px solid var(--line);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--brown);
+      background: var(--tan-soft);
+    }
+
+    .selection-summary {
+      background: var(--white);
+      border: 2px solid var(--orange);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-top: 3rem;
+      text-align: center;
+      display: none;
+    }
+
+    .selection-summary.show {
+      display: block;
+    }
+
+    .selection-summary h2 {
+      font-family: 'Fraunces', Georgia, serif;
+      color: var(--orange);
+      margin-bottom: 1rem;
+    }
+
+    .selected-logo-display {
+      display: inline-block;
+      background: var(--cream);
+      padding: 2rem;
+      border-radius: 12px;
+      margin: 1rem 0;
+      max-width: 400px;
+    }
+
+    .selected-logo-display img {
+      max-width: 100%;
+      max-height: 200px;
+    }
+
+    @media (max-width: 768px) {
+      .logo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🧇 Logo Selection</h1>
+      <p class="subtitle">Choose your favorite logo design for Wow Weffles café</p>
+    </div>
+
+    <div class="instructions">
+      <strong>📋 Instructions:</strong>
+      <p>Click on any logo below to select it. You can change your selection anytime. Once decided, click "Confirm Selection" to proceed.</p>
+    </div>
+
+    <div class="logo-grid" id="logoGrid">
+      <!-- Logo Option 1 -->
+      <div class="logo-card" data-logo-id="1">
+        <div class="logo-number">1</div>
+        <div class="logo-image-container">
+          <img src="{% static 'img/logos/logo-1.png' %}" alt="Logo Option 1" class="logo-image">
+        </div>
+        <div class="logo-info">
+          <div class="logo-name">Classic Waffle Icon</div>
+          <div class="logo-description">Traditional waffle design with warm colors and friendly vibe</div>
+        </div>
+      </div>
+
+      <!-- Logo Option 2 -->
+      <div class="logo-card" data-logo-id="2">
+        <div class="logo-number">2</div>
+        <div class="logo-image-container">
+          <img src="{% static 'img/logos/logo-2.png' %}" alt="Logo Option 2" class="logo-image">
+        </div>
+        <div class="logo-info">
+          <div class="logo-name">Modern Minimalist</div>
+          <div class="logo-description">Clean lines and contemporary design for a modern café feel</div>
+        </div>
+      </div>
+
+      <!-- Logo Option 3 -->
+      <div class="logo-card" data-logo-id="3">
+        <div class="logo-number">3</div>
+        <div class="logo-image-container">
+          <img src="{% static 'img/logos/logo-3.png' %}" alt="Logo Option 3" class="logo-image">
+        </div>
+        <div class="logo-info">
+          <div class="logo-name">Vintage Style</div>
+          <div class="logo-description">Retro-inspired design with nostalgic charm</div>
+        </div>
+      </div>
+
+      <!-- Logo Option 4 -->
+      <div class="logo-card" data-logo-id="4">
+        <div class="logo-number">4</div>
+        <div class="logo-image-container">
+          <img src="{% static 'img/logos/logo-4.png' %}" alt="Logo Option 4" class="logo-image">
+        </div>
+        <div class="logo-info">
+          <div class="logo-name">Playful & Fun</div>
+          <div class="logo-description">Energetic design perfect for a youthful audience</div>
+        </div>
+      </div>
+
+      <!-- Logo Option 5 -->
+      <div class="logo-card" data-logo-id="5">
+        <div class="logo-number">5</div>
+        <div class="logo-image-container">
+          <img src="{% static 'img/logos/logo-5.png' %}" alt="Logo Option 5" class="logo-image">
+        </div>
+        <div class="logo-info">
+          <div class="logo-name">Premium Elegant</div>
+          <div class="logo-description">Sophisticated design for an upscale café experience</div>
+        </div>
+      </div>
+
+      <!-- Logo Option 6 -->
+      <div class="logo-card" data-logo-id="6">
+        <div class="logo-number">6</div>
+        <div class="logo-image-container">
+          <img src="{% static 'img/logos/logo-6.png' %}" alt="Logo Option 6" class="logo-image">
+        </div>
+        <div class="logo-info">
+          <div class="logo-name">Bold & Strong</div>
+          <div class="logo-description">Impactful design that stands out and makes a statement</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="selection-summary" id="selectionSummary">
+      <h2>✓ Your Selection</h2>
+      <p>You've selected <strong id="selectedLogoName">Logo #1</strong></p>
+      <div class="selected-logo-display" id="selectedLogoDisplay">
+        <img src="{% static 'img/logos/logo-1.png' %}" alt="Selected logo" id="selectedLogoImage">
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn btn-primary" id="confirmBtn" onclick="confirmSelection()">Confirm Selection</button>
+      <a href="/" class="btn btn-secondary">Back to Website</a>
+      <button class="btn btn-secondary" id="resetBtn" onclick="resetSelection()">Reset Selection</button>
+    </div>
+  </div>
+
+  <script>
+    let selectedLogoId = null;
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      const logoCards = document.querySelectorAll('.logo-card');
+      
+      logoCards.forEach(card => {
+        card.addEventListener('click', function() {
+          selectLogo(this);
+        });
+      });
+    });
+
+    function selectLogo(card) {
+      // Remove previous selection
+      document.querySelectorAll('.logo-card').forEach(c => {
+        c.classList.remove('selected');
+      });
+
+      // Add selection to clicked card
+      card.classList.add('selected');
+      selectedLogoId = card.getAttribute('data-logo-id');
+
+      // Update selection summary
+      const logoName = card.querySelector('.logo-name').textContent;
+      const logoImage = card.querySelector('.logo-image').src;
+      
+      document.getElementById('selectedLogoName').textContent = logoName;
+      document.getElementById('selectedLogoImage').src = logoImage;
+      document.getElementById('selectionSummary').classList.add('show');
+
+      // Scroll to summary
+      document.getElementById('selectionSummary').scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'nearest' 
+      });
+    }
+
+    function confirmSelection() {
+      if (!selectedLogoId) {
+        alert('Please select a logo first!');
+        return;
+      }
+
+      const logoName = document.getElementById('selectedLogoName').textContent;
+      
+      if (confirm(`Are you sure you want to select "${logoName}"?\n\nThis will be confirmed to the designer.`)) {
+        // Here you can send the selection to the server
+        alert(`✓ Thank you! You've confirmed: ${logoName}\n\nLogo ID: ${selectedLogoId}\n\nThe designer will be notified of your selection.`);
+        
+        // You can add AJAX call here to save selection
+        // Example:
+        // fetch('/save-logo-selection/', {
+        //   method: 'POST',
+        //   headers: { 'Content-Type': 'application/json' },
+        //   body: JSON.stringify({ logo_id: selectedLogoId })
+        // });
+      }
+    }
+
+    function resetSelection() {
+      document.querySelectorAll('.logo-card').forEach(card => {
+        card.classList.remove('selected');
+      });
+      document.getElementById('selectionSummary').classList.remove('show');
+      selectedLogoId = null;
+    }
+  </script>
+</body>
+</html>

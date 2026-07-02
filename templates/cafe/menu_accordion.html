@@ -1,0 +1,353 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Menu · Wow Weffles · Dulera{% endblock %}
+{% block description %}The Wow Weffles menu: chai, coffee, cold-pressed juices, shakes, waffles and savoury bites. Fresh and made to order in Dulera.{% endblock %}
+
+{% block nav_cta %}<a href="{% url 'print_menu' %}" class="btn">Print Menu</a>{% endblock %}
+
+{% block extra_head %}
+<style>
+  /* Accordion Menu Styles */
+  .menu-accordion {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .menu-accordion-item {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    margin-bottom: var(--space-4);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .menu-accordion-item:hover {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .menu-accordion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-6);
+    cursor: pointer;
+    user-select: none;
+    background: var(--white);
+    transition: background 0.2s ease;
+  }
+
+  .menu-accordion-header:hover {
+    background: var(--tan-soft);
+  }
+
+  .menu-accordion-header.active {
+    background: var(--tan-soft);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .menu-accordion-title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    flex: 1;
+  }
+
+  .menu-accordion-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--tan);
+    display: grid;
+    place-items: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .menu-accordion-info h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--brown-deep);
+  }
+
+  .menu-accordion-count {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  .menu-accordion-toggle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    transition: transform 0.3s ease, background 0.2s ease;
+  }
+
+  .menu-accordion-toggle svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+  }
+
+  .menu-accordion-header.active .menu-accordion-toggle {
+    background: var(--orange);
+    border-color: var(--orange);
+  }
+
+  .menu-accordion-header.active .menu-accordion-toggle svg {
+    transform: rotate(180deg);
+    color: white;
+  }
+
+  .menu-accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .menu-accordion-content.active {
+    max-height: 3000px;
+  }
+
+  .menu-accordion-body {
+    padding: var(--space-6);
+    background: var(--cream);
+  }
+
+  .accordion-menu-list {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .accordion-menu-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: var(--space-4);
+    padding: var(--space-4);
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--line);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .accordion-menu-item:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px -6px rgba(58, 40, 27, 0.2);
+  }
+
+  .accordion-item-name {
+    font-weight: 700;
+    color: var(--brown-deep);
+    font-size: 1.05rem;
+  }
+
+  .accordion-item-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .accordion-item-price {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--orange);
+    white-space: nowrap;
+    font-size: 1.1rem;
+  }
+
+  /* Expand All / Collapse All buttons */
+  .menu-controls {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-8);
+  }
+
+  .menu-control-btn {
+    padding: 0.65rem 1.2rem;
+    border-radius: var(--radius-pill);
+    background: var(--white);
+    border: 1.5px solid var(--line);
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--brown-deep);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .menu-control-btn:hover {
+    background: var(--orange);
+    color: white;
+    border-color: var(--orange);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 720px) {
+    .menu-accordion-header {
+      padding: var(--space-4);
+    }
+
+    .menu-accordion-icon {
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+    }
+
+    .menu-accordion-info h3 {
+      font-size: 1.2rem;
+    }
+
+    .accordion-menu-item {
+      grid-template-columns: 1fr;
+      gap: var(--space-2);
+    }
+
+    .accordion-item-price {
+      justify-self: start;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+  <section class="page-hero container">
+    <span class="eyebrow" style="justify-content:center">The full spread</span>
+    <h1>Our Menu</h1>
+    <p class="lead">Tap any category to explore what we serve. Made fresh, served warm.</p>
+  </section>
+
+  <div class="container section">
+    <!-- Expand/Collapse Controls -->
+    {% if categories %}
+    <div class="menu-controls">
+      <button class="menu-control-btn" id="expandAll">Expand All ▼</button>
+      <button class="menu-control-btn" id="collapseAll">Collapse All ▲</button>
+    </div>
+    {% endif %}
+
+    <!-- Accordion Menu -->
+    <div class="menu-accordion">
+      {% for cat in categories %}
+        <div class="menu-accordion-item" data-category="{{ cat.slug }}">
+          <div class="menu-accordion-header{% if forloop.first %} active{% endif %}" role="button" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="content-{{ cat.slug }}">
+            <div class="menu-accordion-title">
+              <div class="menu-accordion-icon">{{ cat.icon }}</div>
+              <div class="menu-accordion-info">
+                <h3>{{ cat.name }}</h3>
+                <div class="menu-accordion-count">{{ cat.available_items.count }} item{{ cat.available_items.count|pluralize }}</div>
+              </div>
+            </div>
+            <div class="menu-accordion-toggle">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </div>
+          
+          <div class="menu-accordion-content{% if forloop.first %} active{% endif %}" id="content-{{ cat.slug }}">
+            <div class="menu-accordion-body">
+              {% if cat.tagline %}
+                <p style="color: var(--muted); margin-bottom: var(--space-4); font-style: italic;">{{ cat.tagline }}</p>
+              {% endif %}
+              
+              <div class="accordion-menu-list">
+                {% for item in cat.available_items %}
+                  <div class="accordion-menu-item">
+                    <div>
+                      <div class="accordion-item-name">
+                        {{ item.name }}
+                        {% if item.is_veg %}<span class="badge-veg">VEG</span>{% endif %}
+                      </div>
+                      {% if item.description %}
+                        <div class="accordion-item-desc">{{ item.description }}</div>
+                      {% endif %}
+                    </div>
+                    <div class="accordion-item-price">₹{{ item.price_display }}</div>
+                  </div>
+                {% empty %}
+                  <p style="color: var(--muted); text-align: center; padding: var(--space-6);">No items yet. Add some in the admin.</p>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <div class="section-head center">
+          <h2>Menu coming soon</h2>
+          <p>Add categories and items from the <a href="/admin/">admin panel</a> and they'll appear here automatically.</p>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if categories %}
+    <div class="band mt-12" data-reveal>
+      <div class="band__grid">
+        <div>
+          <h2>Hungry yet?</h2>
+          <p class="lead" style="color:rgba(250,246,239,0.85)">Everything's made fresh when you order. Drop by, or grab the printable menu.</p>
+        </div>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center">
+          <a href="{% url 'contact' %}" class="btn btn--light">Visit Us</a>
+          <a href="{% url 'print_menu' %}" class="btn btn--on-dark btn--ghost">Printable Menu (PDF)</a>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Accordion Menu Functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const headers = document.querySelectorAll('.menu-accordion-header');
+    const expandAllBtn = document.getElementById('expandAll');
+    const collapseAllBtn = document.getElementById('collapseAll');
+
+    // Toggle individual accordion
+    headers.forEach(header => {
+      header.addEventListener('click', function() {
+        const content = this.nextElementSibling;
+        const isActive = this.classList.contains('active');
+
+        // Toggle current accordion
+        this.classList.toggle('active');
+        content.classList.toggle('active');
+        this.setAttribute('aria-expanded', !isActive);
+      });
+    });
+
+    // Expand all accordions
+    if (expandAllBtn) {
+      expandAllBtn.addEventListener('click', function() {
+        headers.forEach(header => {
+          const content = header.nextElementSibling;
+          header.classList.add('active');
+          content.classList.add('active');
+          header.setAttribute('aria-expanded', 'true');
+        });
+      });
+    }
+
+    // Collapse all accordions
+    if (collapseAllBtn) {
+      collapseAllBtn.addEventListener('click', function() {
+        headers.forEach(header => {
+          const content = header.nextElementSibling;
+          header.classList.remove('active');
+          content.classList.remove('active');
+          header.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+  });
+</script>
+{% endblock %}

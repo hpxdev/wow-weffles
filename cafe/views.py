@@ -18,6 +18,17 @@ def menu(request):
     return render(request, "cafe/menu.html", {"categories": categories})
 
 
+def menu_accordion(request):
+    """Foldable/accordion style menu"""
+    categories = Category.objects.prefetch_related("items")
+    return render(request, "cafe/menu_accordion.html", {"categories": categories})
+
+
+def logo_selection(request):
+    """Logo selection page for client"""
+    return render(request, "cafe/logo_selection.html")
+
+
 def about(request):
     return render(request, "cafe/about.html")
 
