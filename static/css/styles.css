@@ -410,6 +410,24 @@ strong { color: var(--ink); }
   cursor: zoom-in;
   width: 100%;
 }
+
+/* Watermark on gallery thumbnails */
+.gallery-grid figure::before {
+  content: "exploreduo";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.08);
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 3;
+  font-family: 'Manrope', sans-serif;
+}
+
 .gallery-grid img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s var(--ease); }
 .gallery-grid figure:hover img { transform: scale(1.06); }
 .gallery-grid figure::after {
@@ -417,6 +435,7 @@ strong { color: var(--ink); }
   position: absolute; inset: 0;
   background: linear-gradient(to top, rgba(58,40,27,0.35), transparent 55%);
   opacity: 0; transition: opacity 0.3s;
+  z-index: 2;
 }
 .gallery-grid figure:hover::after { opacity: 1; }
 .g-wide { grid-column: span 6; }
@@ -436,7 +455,55 @@ strong { color: var(--ink); }
   transition: opacity 0.3s, visibility 0.3s;
 }
 .lightbox.is-open { opacity: 1; visibility: visible; }
-.lightbox img { max-width: min(92vw, 1000px); max-height: 86vh; border-radius: var(--radius); box-shadow: var(--shadow-lift); }
+
+/* Lightbox image container with watermark */
+.lightbox__content {
+  position: relative;
+  display: inline-block;
+}
+
+/* Center watermark on lightbox */
+.lightbox__content::before {
+  content: "exploreduo";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.12);
+  letter-spacing: 0.15em;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 10;
+  font-family: 'Manrope', sans-serif;
+}
+
+/* Small corner watermark on lightbox */
+.lightbox__content::after {
+  content: "exploreduo";
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  z-index: 10;
+  font-family: 'Manrope', sans-serif;
+}
+
+.lightbox img { 
+  max-width: min(92vw, 1000px); 
+  max-height: 86vh; 
+  border-radius: var(--radius); 
+  box-shadow: var(--shadow-lift);
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  pointer-events: none;
+}
 .lightbox__close {
   position: absolute; top: 20px; right: 24px;
   width: 48px; height: 48px; border-radius: 50%;
