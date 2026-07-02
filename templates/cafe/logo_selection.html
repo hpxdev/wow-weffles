@@ -154,9 +154,9 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) rotate(-45deg);
-      font-size: 2rem;
+      font-size: 2.5rem;
       font-weight: 800;
-      color: rgba(0, 0, 0, 0.08);
+      color: rgba(0, 0, 0, 0.12);
       letter-spacing: 0.2em;
       pointer-events: none;
       white-space: nowrap;
@@ -209,10 +209,27 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) rotate(-45deg);
-      font-size: 4rem;
-      font-weight: 800;
-      color: rgba(255, 255, 255, 0.15);
+      font-size: 5rem;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.35);
       letter-spacing: 0.3em;
+      pointer-events: none;
+      white-space: nowrap;
+      z-index: 10;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Multiple watermarks for extra protection */
+    .lightbox-content::after {
+      content: "exploreduo • exploreduo • exploreduo";
+      position: absolute;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%) rotate(-5deg);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.25);
+      letter-spacing: 0.2em;
       pointer-events: none;
       white-space: nowrap;
       z-index: 10;
@@ -229,6 +246,19 @@
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    /* Overlay to prevent screenshots */
+    .lightbox::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 9998;
     }
 
     .lightbox-close {
@@ -531,42 +561,72 @@
   </div>
 
   <script>
-    // Disable right-click on images
-    document.addEventListener('DOMContentLoaded', function() {
-      // Disable right-click
-      document.addEventListener('contextmenu', function(e) {
-        if (e.target.tagName === 'IMG') {
-          e.preventDefault();
-          return false;
-        }
-      });
+    // Disable right-click on entire page
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      return false;
+    });
 
-      // Disable drag
-      document.addEventListener('dragstart', function(e) {
-        if (e.target.tagName === 'IMG') {
-          e.preventDefault();
-          return false;
-        }
-      });
+    // Disable all keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      // Ctrl+S or Cmd+S (Save)
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        return false;
+      }
+      // F12 (Developer tools)
+      if (e.keyCode === 123) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+Shift+I or Cmd+Shift+I (Inspect)
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+Shift+J or Cmd+Shift+J (Console)
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'J' || e.key === 'j')) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+Shift+C or Cmd+Shift+C (Inspect element)
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'C' || e.key === 'c')) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+U or Cmd+U (View source)
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'u' || e.key === 'U')) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+P or Cmd+P (Print)
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P')) {
+        e.preventDefault();
+        return false;
+      }
+    });
 
-      // Disable keyboard shortcuts for saving
-      document.addEventListener('keydown', function(e) {
-        // Ctrl+S or Cmd+S
-        if ((e.ctrlKey || e.metaKey) && e.key === 's') {
-          e.preventDefault();
-          return false;
-        }
-        // F12 (developer tools)
-        if (e.keyCode === 123) {
-          e.preventDefault();
-          return false;
-        }
-        // Ctrl+Shift+I or Cmd+Shift+I (inspect)
-        if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'I') {
-          e.preventDefault();
-          return false;
-        }
-      });
+    // Disable drag on all elements
+    document.addEventListener('dragstart', function(e) {
+      e.preventDefault();
+      return false;
+    });
+
+    // Disable text selection on images
+    document.addEventListener('selectstart', function(e) {
+      if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+        return false;
+      }
+    });
+
+    // Detect screenshot attempts (Windows)
+    document.addEventListener('keyup', function(e) {
+      // PrtScn or Alt+PrtScn
+      if (e.key === 'PrintScreen') {
+        navigator.clipboard.writeText('');
+        alert('⚠️ Screenshots are not allowed. Contact exploreduo for high-resolution logos.');
+      }
     });
 
     // Open lightbox with logo details
@@ -579,6 +639,9 @@
 
       // Set image and info
       lightboxImg.src = img.src;
+      lightboxImg.setAttribute('oncontextmenu', 'return false');
+      lightboxImg.setAttribute('ondragstart', 'return false');
+      
       lightboxTitle.textContent = img.getAttribute('data-name');
       lightboxDesc.textContent = img.getAttribute('data-desc');
 
@@ -600,6 +663,20 @@
         closeLightbox();
       }
     });
+
+    // Disable developer tools detection
+    (function() {
+      let devtools = { open: false };
+      const threshold = 160;
+      
+      setInterval(function() {
+        if (window.outerWidth - window.innerWidth > threshold || 
+            window.outerHeight - window.innerHeight > threshold) {
+          devtools.open = true;
+          document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;"><h1>⚠️ Developer tools detected. Please close to continue.</h1></div>';
+        }
+      }, 500);
+    })();
   </script>
 </body>
 </html>
