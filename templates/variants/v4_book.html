@@ -1,0 +1,86 @@
+{% extends base_template %}
+{% load static %}
+
+{% block title %}Wow Weffles · Storybook{% endblock %}
+
+{% block content %}
+<header class="hero">
+  <div class="wrap">
+    <div class="orn" data-reveal><span>✦</span></div>
+    <span class="kick" data-reveal>Dulera · Café &amp; Waffle Bar</span>
+    <h1 data-reveal data-d="1">Sip slow.<br>Bite <em>crispy.</em></h1>
+    <p data-reveal data-d="2">Fresh chai, small-batch coffee, cold-pressed juices and golden waffles, laid out like a little story you can taste.</p>
+    <div class="btns" data-reveal data-d="3">
+      <a class="btn solid" href="{% url 'variant_menu' variant=variant %}">Open the menu book</a>
+      <a class="btn ghost" href="{% url 'variant_contact' variant=variant %}">Visit us</a>
+    </div>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap">
+    <div class="shead" data-reveal>
+      <span class="kick">Crowd favourites</span>
+      <h2>A page from our menu</h2>
+    </div>
+    <div class="fav" data-reveal data-d="1">
+      {% for item in featured_items %}
+        <div class="frow">
+          <span class="fn">{{ item.name }}</span>
+          <span class="dots"></span>
+          <span class="fp">₹{{ item.price_display }}</span>
+        </div>
+      {% endfor %}
+    </div>
+    <div style="text-align:center;margin-top:28px" data-reveal data-d="2">
+      <a class="btn ghost" href="{% url 'variant_menu' variant=variant %}">Turn to the full menu →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Chapters / table of contents -->
+<section class="section">
+  <div class="wrap">
+    <div class="shead" data-reveal><span class="kick">What we serve</span><h2>Four chapters</h2></div>
+    <div class="bk-toc">
+      <div class="bk-ch" data-reveal><span class="bk-n">I</span><div class="bk-ch__t"><h3>Tea &amp; Chai</h3><p>Kulhad masala chai, brewed to order.</p></div><span class="bk-dots"></span><span class="bk-pg">p. 1</span></div>
+      <div class="bk-ch" data-reveal data-d="1"><span class="bk-n">II</span><div class="bk-ch__t"><h3>Coffee</h3><p>Espresso, lattes and slow cold brew.</p></div><span class="bk-dots"></span><span class="bk-pg">p. 2</span></div>
+      <div class="bk-ch" data-reveal data-d="2"><span class="bk-n">III</span><div class="bk-ch__t"><h3>Juice &amp; Health</h3><p>Cold-pressed juices and smoothies.</p></div><span class="bk-dots"></span><span class="bk-pg">p. 3</span></div>
+      <div class="bk-ch" data-reveal data-d="3"><span class="bk-n">IV</span><div class="bk-ch__t"><h3>Waffles</h3><p>Golden Belgian waffles, our namesake.</p></div><span class="bk-dots"></span><span class="bk-pg">p. 5</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Story pull-quote -->
+<section class="section bk-storywrap">
+  <div class="wrap">
+    <div class="orn" data-reveal><span>✦</span></div>
+    <blockquote class="bk-quote" data-reveal data-d="1">Every cup has a story. Ours begins with a slow morning in Dulera and a waffle worth waiting for.</blockquote>
+    <div class="bk-by" data-reveal data-d="2">The Wow Weffles story</div>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section class="section">
+  <div class="wrap">
+    <div class="shead" data-reveal><span class="kick">A look inside</span><h2>Between the pages</h2></div>
+    <div class="bk-gallery" data-reveal>
+      <figure><img src="{% static 'img/interior.jpg' %}" alt="The café room"><figcaption>The room</figcaption></figure>
+      <figure><img src="{% static 'img/waffle.jpg' %}" alt="Belgian waffles"><figcaption>The waffles</figcaption></figure>
+      <figure><img src="{% static 'img/coffee.jpg' %}" alt="Fresh coffee"><figcaption>The coffee</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- Stats ribbon -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="bk-stats" data-reveal>
+      <div><span class="bk-num">40+</span><span class="bk-lab">Menu items</span></div>
+      <div><span class="bk-num">4.9</span><span class="bk-lab">Guest rating</span></div>
+      <div><span class="bk-num">7</span><span class="bk-lab">Days a week</span></div>
+      <div><span class="bk-num">100%</span><span class="bk-lab">Fresh daily</span></div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Wow Weffles · Café in Dulera · Chai, Coffee, Juice & Waffles{% endblock %}
+
+{% block content %}
+  <!-- ============================ Hero ============================ -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <span class="eyebrow" data-reveal>Dulera · Café &amp; Waffle Bar</span>
+        <h1 data-reveal data-delay="1">Sip slow.<br>Bite <span class="accent">crispy.</span></h1>
+        <p class="lead" data-reveal data-delay="2">Fresh chai, small-batch coffee, cold-pressed juices and golden waffles, served in a warm, minimal space made for students, families, and everyone in between.</p>
+        <div class="hero__actions" data-reveal data-delay="3">
+          <a href="{% url 'menu' %}" class="btn">Explore the Menu <span class="arrow">→</span></a>
+          <a href="{% url 'contact' %}" class="btn btn--ghost">Visit Us</a>
+        </div>
+        <div class="hero__stats" data-reveal data-delay="3">
+          <div><div class="num">40+</div><div class="label">Menu items</div></div>
+          <div><div class="num">100%</div><div class="label">Fresh brews</div></div>
+          <div><div class="num">7&nbsp;days</div><div class="label">Open weekly</div></div>
+        </div>
+      </div>
+      <div class="hero__visual" data-reveal data-delay="2" aria-hidden="true">
+        <div class="blob"></div>
+        <img src="{% static 'img/waffle-hero.jpg' %}" alt="Fresh Belgian waffle with strawberries" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:46% 54% 58% 42% / 54% 44% 56% 46%; box-shadow:var(--shadow-lift);">
+        <div class="card-float top-right">
+          <span class="cf-ic cf-ic--coffee">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4.5 9.5h11V14a4 4 0 0 1-4 4h-3a4 4 0 0 1-4-4V9.5Z"/>
+              <path d="M15.5 10.5H17a2.5 2.5 0 0 1 0 5h-1.3"/>
+              <path d="M8 6.8c-.7-1 .6-1.9 0-3.3M11 6.8c-.7-1 .6-1.9 0-3.3"/>
+            </svg>
+          </span>
+          <span class="cf-txt">Signature Latte<small>Rich &amp; smooth</small></span>
+        </div>
+        <div class="card-float bottom-left">
+          <span class="cf-ic cf-ic--waffle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="4" y="4" width="16" height="16" rx="4.5"/>
+              <path d="M9.6 4.3v15.4M14.4 4.3v15.4M4.3 9.6h15.4M4.3 14.4h15.4"/>
+            </svg>
+          </span>
+          <span class="cf-txt">Belgian Waffle<small>Crisp, warm, gold</small></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= Specialties ========================= -->
+  <section class="section" id="specialties">
+    <div class="container">
+      <div class="section-head center" data-reveal>
+        <span class="eyebrow">What we do best</span>
+        <h2>Four things, done properly</h2>
+        <p>We keep the menu focused so every cup and plate lands right. No shortcuts, no fuss.</p>
+      </div>
+      <div class="grid cols-4">
+        <article class="card card--tea" data-reveal>
+          <div class="icon">🍵</div>
+          <h3>Tea &amp; Chai</h3>
+          <p>Kadak masala chai, kulhad specials and calming herbal infusions, brewed to order.</p>
+        </article>
+        <article class="card card--coffee" data-reveal data-delay="1">
+          <div class="icon">☕</div>
+          <h3>Coffee</h3>
+          <p>Espresso, creamy lattes and cold brew pulled from freshly roasted beans.</p>
+        </article>
+        <article class="card card--juice" data-reveal data-delay="2">
+          <div class="icon">🥤</div>
+          <h3>Juice &amp; Health</h3>
+          <p>Cold-pressed juices, fruit bowls and smoothies for a lighter, brighter break.</p>
+        </article>
+        <article class="card card--waffle" data-reveal data-delay="3">
+          <div class="icon">🧇</div>
+          <h3>Waffles</h3>
+          <p>Golden Belgian waffles with sweet and savoury toppings, our namesake, of course.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= About teaser ========================= -->
+  <section class="section bg-tan">
+    <div class="container split">
+      <div class="split__media" data-reveal>
+        <div class="media-frame"><img src="{% static 'img/interior.jpg' %}" alt="Inside the Wow Weffles café"></div>
+      </div>
+      <div class="split__content" data-reveal data-delay="1">
+        <span class="eyebrow">Our little corner in Dulera</span>
+        <h2>A modern café with an easy, earthy soul</h2>
+        <p class="lead">Wow Weffles started with a simple idea: a calm, good-looking space where a college catch-up, a work break, or a family evening all feel right. Earthy tones, honest ingredients, friendly faces.</p>
+        <div class="values">
+          <div class="value"><h4>Fresh daily</h4><p>Brewed and made to order.</p></div>
+          <div class="value"><h4>For everyone</h4><p>Students to families.</p></div>
+          <div class="value"><h4>Fair prices</h4><p>Quality without the markup.</p></div>
+        </div>
+        <div class="mt-8"><a href="{% url 'about' %}" class="btn btn--ghost">Read our story <span class="arrow">→</span></a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= Featured menu ========================= -->
+  <section class="section">
+    <div class="container">
+      <div class="split" style="align-items:flex-start">
+        <div data-reveal>
+          <span class="eyebrow">Crowd favourites</span>
+          <h2>A taste of the menu</h2>
+          <p class="lead">A few things our regulars keep coming back for. See the full list for everything we pour and plate.</p>
+          <div class="mt-8"><a href="{% url 'menu' %}" class="btn">View full menu <span class="arrow">→</span></a></div>
+          <div class="chip-row mt-8">
+            <span class="chip">🍵 Chai</span>
+            <span class="chip">☕ Coffee</span>
+            <span class="chip">🥤 Juice</span>
+            <span class="chip">🧇 Waffles</span>
+          </div>
+        </div>
+        <div class="menu-list" data-reveal data-delay="1">
+          {% for item in featured_items %}
+            <div class="menu-item">
+              <div><div class="mi-name">{{ item.name }}{% if item.is_veg %} <span class="badge-veg">VEG</span>{% endif %}</div><div class="mi-desc">{{ item.description }}</div></div>
+              <div class="mi-price">₹{{ item.price_display }}</div>
+            </div>
+          {% empty %}
+            <p class="lead">Add items and tick “featured” in the admin to show them here.</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= Gallery teaser ========================= -->
+  <section class="section bg-tan">
+    <div class="container">
+      <div class="section-head center" data-reveal>
+        <span class="eyebrow">Good mornings, better evenings</span>
+        <h2>A look inside</h2>
+      </div>
+      <div class="gallery-grid" data-reveal>
+        <figure class="g-big"><img src="{% static 'img/counter.jpg' %}" alt="The order counter"></figure>
+        <figure class="g-reg"><img src="{% static 'img/coffee.jpg' %}" alt="A fresh coffee"></figure>
+        <figure class="g-reg"><img src="{% static 'img/chai.jpg' %}" alt="Masala chai"></figure>
+        <figure class="g-wide"><img src="{% static 'img/seating.jpg' %}" alt="Seating area"></figure>
+        <figure class="g-reg"><img src="{% static 'img/juice.jpg' %}" alt="Cold-pressed juice"></figure>
+        <figure class="g-reg"><img src="{% static 'img/dessert.jpg' %}" alt="Sweet treats"></figure>
+      </div>
+      <div class="section-cta"><a href="{% url 'gallery' %}" class="btn btn--ghost">See the gallery <span class="arrow">→</span></a></div>
+    </div>
+  </section>
+
+  <!-- ========================= Testimonials ========================= -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head center" data-reveal>
+        <span class="eyebrow">Loved in the neighbourhood</span>
+        <h2>What people say</h2>
+      </div>
+      <div class="quotes">
+        <figure class="quote" data-reveal>
+          <div class="stars">★★★★★</div>
+          <blockquote>“My go-to study spot. The kulhad chai and free refills of good vibes get me through exam week.”</blockquote>
+          <figcaption class="who"><span class="avatar">A</span><span><span class="name">Aditi R.</span><span class="role">College student</span></span></figcaption>
+        </figure>
+        <figure class="quote" data-reveal data-delay="1">
+          <div class="stars">★★★★★</div>
+          <blockquote>“Best waffles in Dulera, easily. Crisp outside, soft inside, and the coffee actually slaps.”</blockquote>
+          <figcaption class="who"><span class="avatar">M</span><span><span class="name">Manish P.</span><span class="role">Regular</span></span></figcaption>
+        </figure>
+        <figure class="quote" data-reveal data-delay="2">
+          <div class="stars">★★★★★</div>
+          <blockquote>“Clean, calm and family-friendly. We come every weekend for the juices and the kids love the waffles.”</blockquote>
+          <figcaption class="who"><span class="avatar">S</span><span><span class="name">Sneha &amp; family</span><span class="role">Weekend visitors</span></span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= Visit band ========================= -->
+  <section class="section section--tight">
+    <div class="container">
+      <div class="band" data-reveal>
+        <div class="band__grid">
+          <div>
+            <span class="eyebrow" style="color:var(--orange-soft)">Come say hi</span>
+            <h2>Find us in Dulera</h2>
+            <p class="lead" style="color:rgba(250,246,239,0.85)">Walk in for a quick chai or settle in for the evening. We’ll keep the waffles warm.</p>
+            <ul class="info-list">
+              <li><span class="k">Address</span><span>{{ cafe.address }} <em>{{ cafe.address_note }}</em></span></li>
+              <li><span class="k">Hours</span><span>{{ cafe.hours }}</span></li>
+              <li><span class="k">Phone</span><span>{{ cafe.phone }}</span></li>
+            </ul>
+            <div class="mt-8"><a href="{% url 'contact' %}" class="btn btn--light">Get directions <span class="arrow">→</span></a></div>
+          </div>
+          <div class="map-embed">{% if cafe.map_embed %}{{ cafe.map_embed|safe }}{% else %}Map preview: add your Google Maps embed in the admin{% endif %}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

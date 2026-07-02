@@ -1,0 +1,128 @@
+{% extends base_template %}
+
+{% block title %}Menu · Wow Weffles{% endblock %}
+
+{% block content %}
+<section class="bookwrap">
+  <div class="wrap">
+    <div class="booktop">
+      <span class="kick">Our Menu</span>
+      <h1>Turn the pages</h1>
+    </div>
+
+    <div class="book" id="book">
+      <div class="book__stage" id="bookStage">
+        <div class="book__spine"></div>
+      </div>
+
+      <!-- Source pages: JS pairs these into book leaves. -->
+      <div class="book__pages" id="bookPages" hidden>
+        <div class="bpage bpage--cover">
+          <div class="bp-cover">
+            <span class="bp-kick">Wow Weffles</span>
+            <h2>The Menu</h2>
+            <span class="bp-sub">Dulera · Est. 2026</span>
+            <span class="bp-open">Turn the page →</span>
+          </div>
+        </div>
+        {% for cat in categories %}
+          <div class="bpage">
+            <div class="bp-head"><span class="bp-ic">{{ cat.icon }}</span><h3>{{ cat.name }}</h3></div>
+            <div class="bp-items">
+              {% for item in cat.available_items %}
+                <div class="bp-item">
+                  <span class="bp-n">{{ item.name }}{% if item.is_veg %} <span class="bp-veg">veg</span>{% endif %}</span>
+                  <span class="bp-dots"></span>
+                  <span class="bp-p">₹{{ item.price_display }}</span>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="bp-num">{{ cat.tagline|default:cat.name }}</div>
+          </div>
+        {% endfor %}
+        <div class="bpage bpage--back">
+          <div class="bp-cover">
+            <h2>Thank you</h2>
+            <span class="bp-sub">{{ cafe.hours }}</span>
+            <span class="bp-sub">{{ cafe.address }}</span>
+            <span class="bp-open">Sip slow · Bite crispy</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="book__nav">
+        <button class="book__btn" id="bookPrev" aria-label="Previous page">‹</button>
+        <span class="book__hint" id="bookHint">Cover</span>
+        <button class="book__btn" id="bookNext" aria-label="Next page">›</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var stage=document.getElementById('bookStage');
+  var host=document.getElementById('bookPages');
+  var prev=document.getElementById('bookPrev');
+  var next=document.getElementById('bookNext');
+  var hint=document.getElementById('bookHint');
+  if(!stage||!host) return;
+
+  var pages=[].slice.call(host.querySelectorAll('.bpage'));
+  var leaves=[];
+  for(var k=0;k<pages.length;k+=2){
+    var leaf=document.createElement('div'); leaf.className='leaf';
+    var front=document.createElement('div'); front.className='face face--front'; front.appendChild(pages[k]);
+    var back=document.createElement('div'); back.className='face face--back';
+    if(pages[k+1]) back.appendChild(pages[k+1]);
+    leaf.appendChild(front); leaf.appendChild(back);
+    stage.appendChild(leaf); leaves.push(leaf);
+  }
+  host.parentNode.removeChild(host);
+
+  var n=leaves.length, flipped=0;
+
+  function label(){
+    if(flipped===0) return 'Cover';
+    if(flipped>=n) return 'Back cover';
+    return 'Spread ' + flipped + ' of ' + (n-1);
+  }
+  function apply(){
+    leaves.forEach(function(l,i){
+      var f = i < flipped;
+      l.classList.toggle('flipped', f);
+      l.style.zIndex = f ? i : (n - i);
+    });
+    prev.disabled = flipped<=0;
+    next.disabled = flipped>=n;
+    hint.textContent = label();
+  }
+  function go(d){
+    var t=flipped+d;
+    if(t<0||t>n) return;
+    var turning = d>0 ? leaves[flipped] : leaves[flipped-1];
+    flipped=t;
+    if(turning) turning.style.zIndex = n+2;              // keep the turning leaf on top
+    leaves.forEach(function(l,i){ l.classList.toggle('flipped', i<flipped); });
+    prev.disabled=flipped<=0; next.disabled=flipped>=n; hint.textContent=label();
+    if(turning){
+      var done=function(){ apply(); turning.removeEventListener('transitionend',done); };
+      turning.addEventListener('transitionend',done);
+    }
+  }
+
+  next.addEventListener('click',function(){go(1)});
+  prev.addEventListener('click',function(){go(-1)});
+  stage.addEventListener('click',function(e){
+    var r=stage.getBoundingClientRect();
+    (e.clientX - r.left > r.width/2) ? go(1) : go(-1);
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight') go(1);
+    else if(e.key==='ArrowLeft') go(-1);
+  });
+
+  apply();
+})();
+</script>
+{% endblock %}

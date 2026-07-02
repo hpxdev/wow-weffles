@@ -1,0 +1,40 @@
+{% extends base_template %}
+
+{% block title %}Visit Us · Wow Weffles{% endblock %}
+
+{% block content %}
+<section class="vp-hero">
+  <div class="wrap">
+    <span class="vp-eyebrow" data-reveal>Come on over</span>
+    <h1 data-reveal data-d="1">Visit Wow Weffles</h1>
+    <p class="vp-lead" data-reveal data-d="2">We are in Dulera, open all week. Pop in for a quick cup or stay a while. Have a question? Send us a note.</p>
+  </div>
+</section>
+
+<section class="vp-section">
+  <div class="wrap">
+    <div class="vp-contact">
+      <div class="vp-info" data-reveal>
+        <div class="vp-infocard"><span class="vp-infoic">📍</span><div><h4>Address</h4><p>{{ cafe.address }}<br>{{ cafe.address_note }}</p></div></div>
+        <div class="vp-infocard"><span class="vp-infoic">🕘</span><div><h4>Opening hours</h4><p>{{ cafe.hours }}</p></div></div>
+        <div class="vp-infocard"><span class="vp-infoic">📞</span><div><h4>Call / Email</h4><p><a href="{{ cafe.phone_href }}">{{ cafe.phone }}</a><br><a href="mailto:{{ cafe.email }}">{{ cafe.email }}</a></p></div></div>
+      </div>
+
+      <div class="vp-formwrap" data-reveal data-d="1">
+        <h2>Send a message</h2>
+        {% if messages %}{% for m in messages %}<p class="vp-note">{{ m }}</p>{% endfor %}{% endif %}
+        <form class="vp-form" method="post" action="{% url 'variant_contact' variant=variant %}" novalidate>
+          {% csrf_token %}
+          <label class="vp-field"><span>Name</span>{{ form.name }}{% if form.name.errors %}<em>{{ form.name.errors.0 }}</em>{% endif %}</label>
+          <div class="vp-2col">
+            <label class="vp-field"><span>Email</span>{{ form.email }}{% if form.email.errors %}<em>{{ form.email.errors.0 }}</em>{% endif %}</label>
+            <label class="vp-field"><span>Phone</span>{{ form.phone }}</label>
+          </div>
+          <label class="vp-field"><span>Message</span>{{ form.message }}{% if form.message.errors %}<em>{{ form.message.errors.0 }}</em>{% endif %}</label>
+          <button class="vp-submit" type="submit">Send message →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

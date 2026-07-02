@@ -1,0 +1,163 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wow Weffles · Playful</title>
+  <link rel="icon" type="image/svg+xml" href="{% static 'logo/wow-weffles-mark.svg' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/variants/v2.css' %}">
+</head>
+<body>
+
+  <nav class="v-nav">
+    <div class="wrap bar">
+      <a href="{% url 'variant_home' variant=variant %}"><img src="{% static 'logo/wow-weffles-logo.svg' %}" alt="Wow Weffles"></a>
+      <div class="links">
+        <a href="{% url 'variant_home' variant=variant %}">Home</a>
+        <a href="{% url 'variant_menu' variant=variant %}">Menu</a>
+        <a href="{% url 'variant_about' variant=variant %}">About</a>
+        <a href="{% url 'variant_gallery' variant=variant %}">Gallery</a>
+        <a class="pill" href="{% url 'variant_contact' variant=variant %}">Visit us</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+    <div class="wrap inner">
+      <span class="badge" data-pop>🧇 Dulera · Café &amp; Waffle Bar</span>
+      <h1 data-pop data-d="1">Sip slow.<br>Bite <span class="hl">crispy!</span></h1>
+      <p data-pop data-d="2">Fresh chai, small-batch coffee, cold-pressed juices and golden waffles. A bright, comfy spot for students, families and everyone in Dulera.</p>
+      <div class="btns" data-pop data-d="3">
+        <a class="btn solid" href="#menu">Explore the menu</a>
+        <a class="btn ghost" href="{% url 'variant_contact' variant=variant %}">Visit us</a>
+      </div>
+      <div class="stats" data-pop data-d="4">
+        <div><div class="num" data-count="40" data-suffix="+">0</div><div class="lab">Menu items</div></div>
+        <div><div class="num" data-count="100" data-suffix="%">0</div><div class="lab">Fresh brews</div></div>
+        <div><div class="num" data-count="7" data-suffix=" days">0</div><div class="lab">Open weekly</div></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="menu">
+    <div class="wrap">
+      <div class="shead" data-pop>
+        <div class="kick">What we do best</div>
+        <h2>Four things, done right</h2>
+      </div>
+      <div class="bento">
+        <div class="tile big t-waffle" data-pop>
+          <div><div class="emoji">🧇</div><h3>Golden Waffles</h3><p>Crisp Belgian waffles, sweet or savoury. Our namesake.</p></div>
+          <a class="cta" href="/menu/">See waffles</a>
+          <img src="{% static 'img/waffle.jpg' %}" alt="">
+        </div>
+        <div class="tile t-tea" data-pop data-d="1">
+          <div class="emoji">🍵</div>
+          <div><h3>Tea &amp; Chai</h3><p>Kulhad masala chai, brewed to order.</p></div>
+        </div>
+        <div class="tile t-coffee" data-pop data-d="2">
+          <div class="emoji">☕</div>
+          <div><h3>Coffee</h3><p>Espresso, lattes, slow cold brew.</p></div>
+        </div>
+        <div class="tile wide t-juice" data-pop data-d="3">
+          <div class="emoji">🥤</div>
+          <div><h3>Juice &amp; Health</h3><p>Cold-pressed juices, fruit bowls and smoothies for a brighter break.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faves" style="padding-top:0">
+    <div class="wrap">
+      <div class="shead" data-pop>
+        <div class="kick">Crowd favourites</div>
+        <h2>The regulars’ picks</h2>
+      </div>
+      <div class="faves">
+        {% for item in featured_items %}
+          <div class="fave" data-pop data-d="{{ forloop.counter0 }}">
+            <span class="dot">{% cycle '☕' '🧇' '🥤' '🍵' '🥛' '🍰' %}</span>
+            <div>
+              <div class="fn">{{ item.name }}</div>
+              <div class="fd">{{ item.description }}</div>
+            </div>
+            <span class="fp">₹{{ item.price_display }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why us -->
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="shead" data-pop><div class="kick">Why you’ll love it</div><h2>Little things, big smiles</h2></div>
+      <div class="pl-why">
+        <div class="pl-w" data-pop><span class="pl-wic" style="background:#E6EFD4">🌿</span><h3>Always fresh</h3><p>Brewed and made the moment you order.</p></div>
+        <div class="pl-w" data-pop data-d="1"><span class="pl-wic" style="background:#FBE0C6">💸</span><h3>Fair prices</h3><p>Good stuff that won’t empty your wallet.</p></div>
+        <div class="pl-w" data-pop data-d="2"><span class="pl-wic" style="background:#F0DFC9">📶</span><h3>Free Wi-Fi</h3><p>Stay, study, scroll. The corner is yours.</p></div>
+        <div class="pl-w" data-pop data-d="3"><span class="pl-wic" style="background:#F6E7C6">🧇</span><h3>Waffle magic</h3><p>The reason half of Dulera keeps coming back.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="shead" data-pop><div class="kick">Loved in the neighbourhood</div><h2>What people say</h2></div>
+      <div class="pl-quotes">
+        <figure class="pl-q" data-pop><div class="pl-stars">★★★★★</div><blockquote>“My go-to study spot. The kulhad chai gets me through exam week.”</blockquote><figcaption><span class="pl-av">A</span><span><b>Aditi R.</b><small>College student</small></span></figcaption></figure>
+        <figure class="pl-q" data-pop data-d="1"><div class="pl-stars">★★★★★</div><blockquote>“Best waffles in Dulera, easily. Crisp outside, soft inside.”</blockquote><figcaption><span class="pl-av">M</span><span><b>Manish P.</b><small>Regular</small></span></figcaption></figure>
+        <figure class="pl-q" data-pop data-d="2"><div class="pl-stars">★★★★★</div><blockquote>“Clean, calm and family-friendly. We come every weekend.”</blockquote><figcaption><span class="pl-av">S</span><span><b>Sneha &amp; family</b><small>Weekend visitors</small></span></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photo strip -->
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="shead" data-pop><div class="kick">Good times</div><h2>A peek inside</h2></div>
+      <div class="pl-strip" data-pop>
+        <figure><img src="{% static 'img/counter.jpg' %}" alt="The counter"></figure>
+        <figure><img src="{% static 'img/juice.jpg' %}" alt="Juice"></figure>
+        <figure><img src="{% static 'img/waffle.jpg' %}" alt="Waffles"></figure>
+        <figure><img src="{% static 'img/seating.jpg' %}" alt="Seating"></figure>
+        <figure><img src="{% static 'img/dessert.jpg' %}" alt="Sweets"></figure>
+      </div>
+    </div>
+  </section>
+
+  <footer class="section" style="padding-top:0">
+    <div class="foot">
+      <span class="fblob"></span>
+      <h2 data-pop>Come hang out in Dulera</h2>
+      <p data-pop data-d="1">{{ cafe.address }} · {{ cafe.hours }}</p>
+      <a class="btn solid" href="{% url 'variant_menu' variant=variant %}" data-pop data-d="2">See the menu</a>
+      <div class="copy">© {% now "Y" %} Wow Weffles, Dulera. Playful variant.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      var els=document.querySelectorAll('[data-pop]');
+      var io=new IntersectionObserver(function(es){es.forEach(function(e){
+        if(e.isIntersecting){e.target.classList.add('in');
+          var c=e.target.querySelectorAll('[data-count]');
+          c.forEach(count);io.unobserve(e.target)}})},{threshold:.15});
+      els.forEach(function(e){io.observe(e)});
+      function count(el){
+        var to=+el.getAttribute('data-count'),suf=el.getAttribute('data-suffix')||'',t0=null,dur=1100;
+        function step(t){if(!t0)t0=t;var p=Math.min((t-t0)/dur,1);
+          el.textContent=Math.round(p*to)+suf;if(p<1)requestAnimationFrame(step)}
+        requestAnimationFrame(step);
+      }
+    })();
+  </script>
+  {% include "partials/variant_switcher.html" %}
+</body>
+</html>

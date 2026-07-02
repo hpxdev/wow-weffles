@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About · Wow Weffles · Dulera{% endblock %}
+{% block description %}The story behind Wow Weffles, a modern, earthy café in Dulera built for students, office workers, families and everyone who loves a good cup and a great waffle.{% endblock %}
+
+{% block content %}
+  <section class="page-hero container">
+    <span class="eyebrow" style="justify-content:center">Our story</span>
+    <h1>Warm cups, honest food,<br>an easy place to be</h1>
+    <p class="lead">Wow Weffles is a small café in Dulera with a simple belief: good coffee, fresh chai and crisp waffles shouldn’t come with a fuss.</p>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div class="split__media" data-reveal>
+        <div class="media-frame"><img src="{% static 'img/interior.jpg' %}" alt="Inside the Wow Weffles café"></div>
+      </div>
+      <div data-reveal data-delay="1">
+        <span class="eyebrow">How it began</span>
+        <h2>A neighbourhood corner, reimagined</h2>
+        <p>We wanted a space that felt calm and modern but never cold: earthy browns and olive greens, warm light, and a menu you can trust. Somewhere a student can nurse a chai over notes, an office team can grab a quick coffee, and a family can share waffles on a Sunday.</p>
+        <p>So we built exactly that. Everything is brewed and made to order, priced fairly, and served with a smile. That’s the whole idea.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-tan">
+    <div class="container">
+      <div class="section-head center" data-reveal>
+        <span class="eyebrow">What we stand for</span>
+        <h2>Small café, clear values</h2>
+      </div>
+      <div class="grid cols-3">
+        <article class="card" data-reveal>
+          <div class="icon">🌱</div>
+          <h3>Fresh &amp; honest</h3>
+          <p>Real ingredients, made when you order. No pre-mixes, no shortcuts on the things that matter.</p>
+        </article>
+        <article class="card" data-reveal data-delay="1">
+          <div class="icon">🤝</div>
+          <h3>For everyone</h3>
+          <p>Students, families, couples, office folks: our space and prices welcome all of Dulera.</p>
+        </article>
+        <article class="card" data-reveal data-delay="2">
+          <div class="icon">✨</div>
+          <h3>Calm &amp; clean</h3>
+          <p>A modern, minimal room that’s easy on the eyes and easy to settle into for hours.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="split" style="align-items:center">
+        <div data-reveal>
+          <span class="eyebrow">Who it’s for</span>
+          <h2>Made for the way Dulera actually hangs out</h2>
+          <div class="values" style="grid-template-columns:1fr 1fr; margin-top:2rem">
+            <div class="value"><h4>College students</h4><p>Wi-Fi, refills, and a quiet-enough corner for study sessions.</p></div>
+            <div class="value"><h4>Office workers</h4><p>Fast, good coffee and quick bites between meetings.</p></div>
+            <div class="value"><h4>Families</h4><p>Something for every age: juices, waffles, and space to sit.</p></div>
+            <div class="value"><h4>Couples &amp; dates</h4><p>A warm, easy-going spot for an unhurried evening.</p></div>
+          </div>
+        </div>
+        <div class="split__media" data-reveal data-delay="1">
+          <div class="media-frame"><img src="{% static 'img/seating.jpg' %}" alt="Seating area at Wow Weffles"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="band" data-reveal>
+        <div class="band__grid">
+          <div>
+            <span class="eyebrow" style="color:var(--orange-soft)">Come see for yourself</span>
+            <h2>Your table’s waiting</h2>
+            <p class="lead" style="color:rgba(250,246,239,0.85)">Swing by in Dulera for a chai, a coffee, or a plate of waffles. First visit’s always the best one.</p>
+          </div>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center">
+            <a href="{% url 'contact' %}" class="btn btn--light">Visit Us</a>
+            <a href="{% url 'menu' %}" class="btn btn--on-dark btn--ghost">Browse Menu</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

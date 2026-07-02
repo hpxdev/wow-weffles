@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 84" role="img" aria-label="Wow Weffles mark">
+  <defs>
+    <linearGradient id="ww-waffle-m" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F4BC6B"/>
+      <stop offset="1" stop-color="#D98E3D"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(7 8)">
+    <g fill="none" stroke="#E8720C" stroke-width="3.4" stroke-linecap="round">
+      <path d="M23 12 C19 8, 27 5, 23 0"/>
+      <path d="M36 12 C32 8, 40 5, 36 0"/>
+    </g>
+    <rect x="6" y="14" width="52" height="52" rx="15" fill="url(#ww-waffle-m)"/>
+    <rect x="6" y="14" width="52" height="52" rx="15" fill="none" stroke="#B4712C" stroke-width="1.4" opacity="0.6"/>
+    <g stroke="#7A4A26" stroke-width="3.2" stroke-linecap="round" opacity="0.55">
+      <line x1="23" y1="22" x2="23" y2="58"/>
+      <line x1="41" y1="22" x2="41" y2="58"/>
+      <line x1="14" y1="32" x2="50" y2="32"/>
+      <line x1="14" y1="48" x2="50" y2="48"/>
+    </g>
+    <circle cx="32" cy="40" r="4.4" fill="#E8720C"/>
+  </g>
+</svg>

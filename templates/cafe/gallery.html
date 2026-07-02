@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Gallery · Wow Weffles · Dulera{% endblock %}
+{% block description %}A peek inside Wow Weffles: the space, the coffee, the chai, the juices and those golden waffles. Photo gallery of our Dulera café.{% endblock %}
+
+{% block content %}
+  <section class="page-hero container">
+    <span class="eyebrow" style="justify-content:center">Say cheese</span>
+    <h1>The Gallery</h1>
+    <p class="lead">A little look at the space and the spread, from the counter to the kitchen. Tap any image to enlarge.</p>
+  </section>
+
+  <section class="section" style="padding-top:1rem">
+    <div class="container">
+      <div class="gallery-grid" data-reveal>
+        <figure class="g-big"><img src="{% static 'img/counter.jpg' %}" alt="The order counter at Wow Weffles"></figure>
+        <figure class="g-reg"><img src="{% static 'img/coffee.jpg' %}" alt="A freshly poured coffee"></figure>
+        <figure class="g-reg"><img src="{% static 'img/chai.jpg' %}" alt="Kulhad masala chai"></figure>
+        <figure class="g-tall"><img src="{% static 'img/waffle.jpg' %}" alt="A golden Belgian waffle"></figure>
+        <figure class="g-reg"><img src="{% static 'img/juice.jpg' %}" alt="Cold-pressed juice"></figure>
+        <figure class="g-reg"><img src="{% static 'img/dessert.jpg' %}" alt="Sweet treats"></figure>
+        <figure class="g-wide"><img src="{% static 'img/seating.jpg' %}" alt="The seating area"></figure>
+        <figure class="g-reg"><img src="{% static 'img/interior.jpg' %}" alt="Café interior"></figure>
+        <figure class="g-reg"><img src="{% static 'img/coffee.jpg' %}" alt="Latte art"></figure>
+        <figure class="g-wide"><img src="{% static 'img/waffle.jpg' %}" alt="Waffle plating"></figure>
+        <figure class="g-reg"><img src="{% static 'img/chai.jpg' %}" alt="Tea service"></figure>
+        <figure class="g-reg"><img src="{% static 'img/dessert.jpg' %}" alt="Dessert of the day"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="band" data-reveal>
+        <div class="band__grid">
+          <div>
+            <span class="eyebrow" style="color:var(--orange-soft)">Tag us</span>
+            <h2>Seen it? Share it.</h2>
+            <p class="lead" style="color:rgba(250,246,239,0.85)">Post your Wow Weffles moments and tag us, we love reposting the good ones.</p>
+          </div>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center">
+            <a href="{{ cafe.instagram|default:'#' }}" class="btn btn--light">@wowweffles</a>
+            <a href="{% url 'contact' %}" class="btn btn--on-dark btn--ghost">Visit Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
+    <button class="lightbox__close" aria-label="Close">✕</button>
+    <img src="" alt="">
+  </div>
+{% endblock %}

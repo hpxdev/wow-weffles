@@ -1,0 +1,43 @@
+{% extends base_template %}
+
+{% block title %}Menu · Wow Weffles{% endblock %}
+
+{% block content %}
+<section class="vp-hero">
+  <div class="wrap">
+    <span class="vp-eyebrow" data-reveal>The full spread</span>
+    <h1 data-reveal data-d="1">Our Menu</h1>
+    <p class="vp-lead" data-reveal data-d="2">Brewed fresh, plated warm. Everything below is managed from the admin, so prices and items stay up to date.</p>
+  </div>
+</section>
+
+<section class="vp-section">
+  <div class="wrap">
+    <div class="vp-menu">
+      {% for cat in categories %}
+        <div class="vp-cat" id="{{ cat.slug }}" data-reveal>
+          <div class="vp-cathead">
+            <span class="vp-catic">{{ cat.icon }}</span>
+            <h2>{{ cat.name }}</h2>
+            {% if cat.tagline %}<span class="vp-tag">{{ cat.tagline }}</span>{% endif %}
+          </div>
+          <div class="vp-items">
+            {% for item in cat.available_items %}
+              <div class="vp-item">
+                <div class="vp-item__t">
+                  <span class="vp-item__n">{{ item.name }}{% if item.is_veg %} <span class="vp-veg">VEG</span>{% endif %}</span>
+                  {% if item.description %}<span class="vp-item__d">{{ item.description }}</span>{% endif %}
+                </div>
+                <span class="vp-dots"></span>
+                <span class="vp-item__p">₹{{ item.price_display }}</span>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% empty %}
+        <p class="vp-lead">Add categories and items in the admin and they will appear here.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

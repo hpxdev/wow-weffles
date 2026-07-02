@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wow Weffles · Printable Bifold Menu</title>
+  <link rel="icon" type="image/svg+xml" href="{% static 'logo/wow-weffles-mark.svg' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/print.css' %}">
+</head>
+<body>
+
+  <!-- Screen-only toolbar -->
+  <div class="toolbar">
+    <strong>Wow Weffles · Bifold Menu</strong>
+    <p>A4 landscape · 4 panels. Print double-sided (flip on long edge), then fold in half. Menu is pulled live from the admin.</p>
+    <button onclick="window.print()">🖨 Print / Save as PDF</button>
+  </div>
+
+  <!-- ===================== SHEET 1 · OUTSIDE ===================== -->
+  <section class="sheet">
+    <!-- Back cover -->
+    <div class="panel back">
+      <img class="mark" src="{% static 'logo/wow-weffles-mark.svg' %}" alt="Wow Weffles">
+      <h2>Come visit us</h2>
+      <div class="info">
+        <div class="row"><span class="k">Address</span><span class="v">{{ cafe.address }}<br>{{ cafe.address_note }}</span></div>
+        <div class="row"><span class="k">Hours</span><span class="v">{{ cafe.hours }}</span></div>
+        <div class="row"><span class="k">Phone</span><span class="v">{{ cafe.phone }}</span></div>
+        <div class="row"><span class="k">Online</span><span class="v">{{ cafe.email }}</span></div>
+      </div>
+      <div class="qr">Scan for<br>menu / location<br>(add QR code)</div>
+      <div class="thanks">
+        <p>Thanks for stopping by.</p>
+        <div class="socials">@wowweffles · Instagram · Facebook</div>
+      </div>
+    </div>
+
+    <!-- Front cover -->
+    <div class="panel cover">
+      <span class="kicker">Dulera · Est. 2026</span>
+      <img src="{% static 'logo/wow-weffles-logo-white.svg' %}" alt="Wow Weffles">
+      <div class="rule"></div>
+      <h1>The Menu</h1>
+      <p class="sub">Fresh chai, small-batch coffee, cold-pressed juice &amp; golden waffles.</p>
+      <span class="foot">SIP SLOW · BITE CRISPY</span>
+    </div>
+  </section>
+
+  <!-- ===================== SHEET 2 · INSIDE ===================== -->
+  <section class="sheet">
+    <!-- Left panel -->
+    <div class="panel menu-panel">
+      <div class="phead"><span class="lg">Sip</span><span class="pg">Fresh &amp; Made to Order</span></div>
+      {% for cat in left_categories %}
+        <div class="cat">
+          <h3>{{ cat.icon }} {{ cat.name }}</h3>
+          {% for item in cat.available_items %}
+            <div class="item"><span class="n">{{ item.name }}</span><span class="dots"></span><span class="p">₹{{ item.price_display }}</span></div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+      <div class="note">All drinks made to order · Veg-friendly options available.</div>
+    </div>
+
+    <!-- Right panel -->
+    <div class="panel menu-panel">
+      <div class="phead"><span class="lg">Bite</span><span class="pg">Sweet &amp; Savoury</span></div>
+      {% for cat in right_categories %}
+        <div class="cat">
+          <h3>{{ cat.icon }} {{ cat.name }}</h3>
+          {% for item in cat.available_items %}
+            <div class="item"><span class="n">{{ item.name }}</span><span class="dots"></span><span class="p">₹{{ item.price_display }}</span></div>
+          {% endfor %}
+        </div>
+      {% endfor %}
+      <div class="note">Taxes as applicable · Ask staff for today’s specials.</div>
+    </div>
+  </section>
+
+</body>
+</html>

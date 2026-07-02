@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wow Weffles · Premium</title>
+  <link rel="icon" type="image/svg+xml" href="{% static 'logo/wow-weffles-mark.svg' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/variants/v3.css' %}">
+</head>
+<body>
+
+  <nav class="v-nav" id="vnav">
+    <div class="wrap row">
+      <a href="{% url 'variant_home' variant=variant %}"><img src="{% static 'logo/wow-weffles-logo-white.svg' %}" alt="Wow Weffles"></a>
+      <div class="links">
+        <a href="{% url 'variant_home' variant=variant %}">Home</a>
+        <a href="{% url 'variant_menu' variant=variant %}">Menu</a>
+        <a href="{% url 'variant_about' variant=variant %}">About</a>
+        <a href="{% url 'variant_gallery' variant=variant %}">Gallery</a>
+        <a class="out" href="{% url 'variant_contact' variant=variant %}">Visit</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero__bg"><img src="{% static 'img/waffle-hero.jpg' %}" alt=""></div>
+    <div class="wrap">
+      <div class="inner">
+        <span class="kick" data-up>Dulera · Café &amp; Waffle Bar</span>
+        <h1 data-up data-d="1">Sip slow.<br>Bite <em>crispy.</em></h1>
+        <p data-up data-d="2">Fresh chai, small-batch coffee, cold-pressed juices and golden waffles, served in a warm, low-lit room made for lingering.</p>
+        <div class="btns" data-up data-d="3">
+          <a class="btn gold" href="#menu">Explore the menu</a>
+          <a class="btn line" href="#visit">Visit us</a>
+        </div>
+      </div>
+    </div>
+    <span class="scrollcue">scroll</span>
+  </header>
+
+  <section class="section" id="menu">
+    <div class="wrap">
+      <div class="shead center" data-up>
+        <span class="kick">The craft</span>
+        <h2>Four things, made with care</h2>
+        <p>A focused menu so every cup and plate lands right.</p>
+      </div>
+      <div class="glass-grid">
+        <article class="glass" data-up><div class="ic">🍵</div><h3>Tea &amp; Chai</h3><p>Kulhad masala chai, elaichi and herbal infusions, brewed to order.</p></article>
+        <article class="glass" data-up data-d="1"><div class="ic">☕</div><h3>Coffee</h3><p>Espresso, silky lattes and slow cold brew from freshly roasted beans.</p></article>
+        <article class="glass" data-up data-d="2"><div class="ic">🥤</div><h3>Juice &amp; Health</h3><p>Cold-pressed juices, fruit bowls and smoothies for a brighter break.</p></article>
+        <article class="glass" data-up data-d="3"><div class="ic">🧇</div><h3>Waffles</h3><p>Golden Belgian waffles, sweet or savoury. Our namesake.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="divider"></div></div>
+
+  <section class="section" id="faves">
+    <div class="wrap feature">
+      <figure class="feature__img" data-up>
+        <img src="{% static 'img/coffee.jpg' %}" alt="Signature coffee">
+      </figure>
+      <div data-up data-d="1">
+        <span class="kick">Crowd favourites</span>
+        <div class="shead"><h2>The regulars’ picks</h2></div>
+        <div class="flist">
+          {% for item in featured_items %}
+            <div class="frow">
+              <span class="fn">{{ item.name }}{% if item.is_veg %} <span class="veg">VEG</span>{% endif %}</span>
+              <span class="dots"></span>
+              <span class="fp">₹{{ item.price_display }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="pm-stats" data-up>
+        <div><span class="pm-num">40+</span><span class="pm-lab">Menu items</span></div>
+        <div><span class="pm-num">4.9</span><span class="pm-lab">Guest rating</span></div>
+        <div><span class="pm-num">7</span><span class="pm-lab">Days a week</span></div>
+        <div><span class="pm-num">100%</span><span class="pm-lab">Fresh daily</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="shead center" data-up><span class="kick">Kind words</span><h2>What guests say</h2></div>
+      <div class="pm-quotes">
+        <figure class="pm-q" data-up><div class="pm-stars">★★★★★</div><blockquote>“A calm, low-lit corner with coffee worth lingering over.”</blockquote><figcaption>Aditi R. · College student</figcaption></figure>
+        <figure class="pm-q" data-up data-d="1"><div class="pm-stars">★★★★★</div><blockquote>“Best waffles in Dulera. Crisp outside, soft within.”</blockquote><figcaption>Manish P. · Regular</figcaption></figure>
+        <figure class="pm-q" data-up data-d="2"><div class="pm-stars">★★★★★</div><blockquote>“Elegant yet easy. Our favourite evening spot.”</blockquote><figcaption>Sneha &amp; family · Weekend visitors</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="shead center" data-up><span class="kick">The atmosphere</span><h2>A look inside</h2></div>
+      <div class="pm-gallery" data-up>
+        <figure class="pm-a"><img src="{% static 'img/interior.jpg' %}" alt="Café interior"></figure>
+        <figure><img src="{% static 'img/coffee.jpg' %}" alt="Coffee"></figure>
+        <figure><img src="{% static 'img/waffle.jpg' %}" alt="Waffles"></figure>
+        <figure><img src="{% static 'img/seating.jpg' %}" alt="Seating"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="visit" style="padding-top:0">
+    <div class="wrap">
+      <div class="cta-band" data-up>
+        <span class="kick">Come say hi</span>
+        <h2>An evening in Dulera</h2>
+        <p>{{ cafe.address }} · {{ cafe.hours }}</p>
+        <a class="btn gold" href="{% url 'variant_contact' variant=variant %}">Visit us</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="meta">
+        <div><div class="k">Address</div><span>{{ cafe.address }}</span></div>
+        <div><div class="k">Hours</div><span>{{ cafe.hours }}</span></div>
+        <div><div class="k">Phone</div><span>{{ cafe.phone }}</span></div>
+      </div>
+      © {% now "Y" %} Wow Weffles, Dulera. Premium variant.
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      var nav=document.getElementById('vnav');
+      addEventListener('scroll',function(){nav.classList.toggle('stuck',scrollY>40)},{passive:true});
+      var els=document.querySelectorAll('[data-up]');
+      if('IntersectionObserver' in window){
+        var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+        els.forEach(function(e){io.observe(e)});
+      }else{els.forEach(function(e){e.classList.add('in')})}
+    })();
+  </script>
+  {% include "partials/variant_switcher.html" %}
+</body>
+</html>

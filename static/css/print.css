@@ -1,0 +1,174 @@
+/* ==========================================================================
+   Wow Weffles · Print bifold menu
+   A4 landscape, folded once = 4 panels.
+   Sheet 1 (outside): [Back cover] [Front cover]
+   Sheet 2 (inside):  [Inside left] [Inside right]
+   Print double-sided (flip on long edge), fold in half.
+   ========================================================================== */
+
+:root {
+  --brown: #5A3E2B;
+  --brown-deep: #3A281B;
+  --tan: #D8C3A5;
+  --tan-soft: #EADFCB;
+  --olive: #7A7A52;
+  --orange: #E8720C;
+  --cream: #FAF6EF;
+  --ink: #2B2320;
+  --muted: #6E6258;
+  --line: #E0D4C0;
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Manrope", "Segoe UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: #cfc7bb;               /* screen backdrop only */
+  padding: 24px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Screen toolbar (hidden when printing) */
+.toolbar {
+  max-width: 297mm;
+  margin: 0 auto 20px;
+  background: var(--brown-deep);
+  color: var(--cream);
+  border-radius: 14px;
+  padding: 16px 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 14px;
+}
+.toolbar strong { font-family: var(--font-display); font-size: 18px; }
+.toolbar p { color: rgba(250,246,239,0.8); margin-right: auto; }
+.toolbar button {
+  font: inherit; font-weight: 700; cursor: pointer;
+  background: var(--orange); color: #fff; border: none;
+  padding: 10px 20px; border-radius: 999px;
+}
+
+/* Sheets & panels */
+.sheet {
+  width: 297mm;
+  height: 210mm;
+  margin: 0 auto 22px;
+  display: flex;
+  background: var(--cream);
+  box-shadow: 0 18px 40px -18px rgba(0,0,0,0.5);
+  position: relative;
+  overflow: hidden;
+}
+.sheet::after {  /* fold line, screen guide only */
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 50%;
+  border-left: 1px dashed rgba(90,62,43,0.35);
+}
+.panel {
+  width: 148.5mm;
+  height: 210mm;
+  padding: 14mm 13mm;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---- Cover (front) ---- */
+.cover {
+  background: linear-gradient(150deg, var(--brown), var(--brown-deep));
+  color: var(--cream);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+.cover::before {
+  content: "";
+  position: absolute; right: -50px; top: -50px;
+  width: 220px; height: 220px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,114,12,0.4), transparent 70%);
+}
+.cover img { width: 62mm; margin-bottom: 10mm; position: relative; }
+.cover .kicker {
+  font-weight: 700; letter-spacing: 5px; font-size: 12px;
+  color: var(--tan); text-transform: uppercase;
+}
+.cover h1 {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 46px; line-height: 1; margin: 8mm 0 6mm; color: #fff;
+}
+.cover .rule { width: 40px; height: 3px; background: var(--orange); border-radius: 3px; margin: 0 auto 6mm; }
+.cover .sub { color: rgba(250,246,239,0.82); font-size: 14px; max-width: 90mm; }
+.cover .foot { position: absolute; bottom: 14mm; font-size: 12px; letter-spacing: 3px; color: var(--tan); }
+
+/* ---- Back cover ---- */
+.back { background: var(--tan-soft); color: var(--brown-deep); }
+.back .mark { width: 22mm; margin-bottom: 8mm; }
+.back h2 { font-family: var(--font-display); font-size: 30px; margin-bottom: 5mm; }
+.back .info { display: grid; gap: 5mm; margin-top: 3mm; }
+.back .info .row { display: grid; grid-template-columns: 26mm 1fr; gap: 4mm; font-size: 13px; }
+.back .info .k { font-weight: 800; color: var(--brown); }
+.back .info .v { color: var(--muted); }
+.back .thanks { margin-top: auto; }
+.back .thanks p { font-family: var(--font-display); font-size: 20px; color: var(--brown); }
+.back .socials { margin-top: 4mm; font-weight: 700; font-size: 13px; color: var(--olive); letter-spacing: 1px; }
+.back .qr {
+  width: 26mm; height: 26mm; margin-top: 6mm;
+  border: 1.5px dashed var(--brown); border-radius: 8px;
+  display: grid; place-items: center; text-align: center;
+  font-size: 10px; color: var(--muted); padding: 4px;
+}
+
+/* ---- Inside menu panels ---- */
+.menu-panel { background: var(--cream); }
+.menu-panel .phead {
+  display: flex; align-items: baseline; gap: 8px;
+  border-bottom: 2px solid var(--brown-deep);
+  padding-bottom: 4mm; margin-bottom: 5mm;
+}
+.menu-panel .phead .lg { font-family: var(--font-display); font-size: 20px; color: var(--brown-deep); }
+.menu-panel .phead .pg { margin-left: auto; font-size: 11px; letter-spacing: 2px; color: var(--orange); font-weight: 700; }
+
+.cat { margin-bottom: 7mm; }
+.cat h3 {
+  font-family: var(--font-body); font-weight: 800; font-size: 14px;
+  text-transform: uppercase; letter-spacing: 1.5px; color: var(--orange);
+  display: flex; align-items: center; gap: 6px; margin-bottom: 3mm;
+}
+.cat h3::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+.item { display: flex; align-items: baseline; gap: 6px; margin-bottom: 2.6mm; }
+.item .n { font-weight: 700; color: var(--brown-deep); font-size: 12.5px; white-space: nowrap; }
+.item .d { font-size: 10.5px; color: var(--muted); }
+.item .dots { flex: 1; border-bottom: 1px dotted var(--tan); transform: translateY(-3px); }
+.item .p { font-family: var(--font-display); font-weight: 600; color: var(--orange); font-size: 13px; white-space: nowrap; }
+
+.panel .note { margin-top: auto; font-size: 10px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 3mm; }
+
+/* ---------------------------- Print rules ------------------------------- */
+@media print {
+  @page { size: A4 landscape; margin: 0; }
+  html, body { background: #fff; padding: 0; margin: 0; }
+  .toolbar { display: none !important; }
+  .sheet {
+    margin: 0; box-shadow: none; width: 297mm; height: 210mm;
+    page-break-after: always; break-after: page;
+  }
+  .sheet:last-child { page-break-after: auto; break-after: auto; }
+  .sheet::after { display: none; }              /* no fold guide in print */
+  /* Force brand colors to print */
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+}
+
+/* Small-screen convenience: let the wide sheets scale down to fit */
+@media screen and (max-width: 1120px) {
+  body { padding: 12px; }
+  .sheet { transform: scale(0.72); transform-origin: top center; margin-bottom: -46mm; }
+  .toolbar { max-width: 100%; }
+}

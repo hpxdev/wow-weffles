@@ -1,0 +1,33 @@
+{% extends base_template %}
+{% load static %}
+
+{% block title %}About · Wow Weffles{% endblock %}
+
+{% block content %}
+<section class="vp-hero">
+  <div class="wrap">
+    <span class="vp-eyebrow" data-reveal>Our story</span>
+    <h1 data-reveal data-d="1">Warm cups,<br>honest food.</h1>
+    <p class="vp-lead" data-reveal data-d="2">Wow Weffles is a small café in Dulera with a simple belief: good coffee, fresh chai and crisp waffles should not come with a fuss.</p>
+  </div>
+</section>
+
+<section class="vp-section">
+  <div class="wrap">
+    <div class="vp-split" data-reveal>
+      <figure class="vp-media"><img src="{% static 'img/interior.jpg' %}" alt="Inside the Wow Weffles café"></figure>
+      <div class="vp-splittext">
+        <h2>A neighbourhood corner, reimagined</h2>
+        <p>We wanted a space that felt calm and modern but never cold: earthy browns and olive greens, warm light, and a menu you can trust. Somewhere a student can nurse a chai, an office team can grab a quick coffee, and a family can share waffles on a Sunday.</p>
+        <p>Everything is brewed and made to order, priced fairly, and served with a smile. That is the whole idea.</p>
+      </div>
+    </div>
+
+    <div class="vp-values">
+      <div class="vp-value" data-reveal><h3>Fresh &amp; honest</h3><p>Real ingredients, made when you order. No shortcuts on the things that matter.</p></div>
+      <div class="vp-value" data-reveal data-d="1"><h3>For everyone</h3><p>Students, families, couples and office folks. Our space and prices welcome all of Dulera.</p></div>
+      <div class="vp-value" data-reveal data-d="2"><h3>Calm &amp; clean</h3><p>A modern, minimal room that is easy to settle into for hours.</p></div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Wow Weffles · Storybook{% endblock %}</title>
+  <link rel="icon" type="image/svg+xml" href="{% static 'logo/wow-weffles-mark.svg' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/variants/v4.css' %}">
+  <link rel="stylesheet" href="{% static 'css/variants/v4_pages.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  {% with vn=request.resolver_match.url_name %}
+  <nav class="v-nav" id="vnav">
+    <div class="wrap row">
+      <a href="{% url 'variant_home' variant=variant %}"><img src="{% static 'logo/wow-weffles-logo.svg' %}" alt="Wow Weffles"></a>
+      <div class="links">
+        <a href="{% url 'variant_home' variant=variant %}"{% if vn == 'variant_home' %} aria-current="page"{% endif %}>Home</a>
+        <a href="{% url 'variant_menu' variant=variant %}"{% if vn == 'variant_menu' %} aria-current="page"{% endif %}>Menu</a>
+        <a href="{% url 'variant_about' variant=variant %}"{% if vn == 'variant_about' %} aria-current="page"{% endif %}>About</a>
+        <a href="{% url 'variant_gallery' variant=variant %}"{% if vn == 'variant_gallery' %} aria-current="page"{% endif %}>Gallery</a>
+        <a class="navcta" href="{% url 'variant_contact' variant=variant %}">Visit us</a>
+      </div>
+    </div>
+  </nav>
+  {% endwith %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="orn"><span>✦</span></div>
+      <h2>Find us in Dulera</h2>
+      <p>{{ cafe.address }} · {{ cafe.hours }}</p>
+      <a class="btn solid" href="{% url 'variant_menu' variant=variant %}">Read the menu</a>
+      <div class="copy">© {% now "Y" %} Wow Weffles, Dulera. Storybook variant.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      var nav=document.getElementById('vnav');
+      if(nav) addEventListener('scroll',function(){nav.classList.toggle('stuck',scrollY>20)},{passive:true});
+      var els=document.querySelectorAll('[data-reveal]');
+      if('IntersectionObserver' in window){
+        var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+        els.forEach(function(e){io.observe(e)});
+      }else{els.forEach(function(e){e.classList.add('in')})}
+    })();
+  </script>
+  {% include "partials/variant_switcher.html" %}
+</body>
+</html>

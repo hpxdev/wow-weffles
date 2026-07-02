@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wow Weffles · Editorial</title>
+  <link rel="icon" type="image/svg+xml" href="{% static 'logo/wow-weffles-mark.svg' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/variants/v1.css' %}">
+</head>
+<body>
+
+  <nav class="v-nav" id="vnav">
+    <div class="wrap row">
+      <a href="{% url 'variant_home' variant=variant %}"><img src="{% static 'logo/wow-weffles-logo.svg' %}" alt="Wow Weffles"></a>
+      <div class="links">
+        <a href="{% url 'variant_home' variant=variant %}">Home</a>
+        <a href="{% url 'variant_menu' variant=variant %}">Menu</a>
+        <a href="{% url 'variant_about' variant=variant %}">About</a>
+        <a href="{% url 'variant_gallery' variant=variant %}">Gallery</a>
+        <a href="{% url 'variant_contact' variant=variant %}">Visit</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="wrap grid">
+      <div>
+        <span class="eyebrow" data-reveal>Dulera · Café &amp; Waffle Bar</span>
+        <h1 data-reveal data-d="1">Sip slow.<br>Bite <em>crispy.</em></h1>
+        <p class="lead" data-reveal data-d="2">Fresh chai, small-batch coffee, cold-pressed juices and golden waffles, served in a calm, modern room built for everyone in Dulera.</p>
+        <a class="cta" href="#menu" data-reveal data-d="3">Explore the menu →</a>
+      </div>
+      <figure class="hero__img" data-reveal data-d="2">
+        <img src="{% static 'img/waffle-hero.jpg' %}" alt="Belgian waffle with strawberries">
+        <figcaption>House Belgian waffle</figcaption>
+      </figure>
+    </div>
+  </header>
+
+  <div class="marquee">
+    <div class="track">
+      <span>Chai</span><span>Coffee</span><span>Cold-pressed juice</span><span>Waffles</span><span>Shakes</span><span>Bites</span>
+      <span>Chai</span><span>Coffee</span><span>Cold-pressed juice</span><span>Waffles</span><span>Shakes</span><span>Bites</span>
+    </div>
+  </div>
+
+  <section class="section" id="menu">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <h2>What we do best</h2>
+        <span class="n">01 / 04</span>
+      </div>
+      <div class="rows">
+        <div class="rowitem" data-reveal>
+          <span class="num">01</span>
+          <span class="name">Tea &amp; Chai</span>
+          <img class="thumb" src="{% static 'img/chai.jpg' %}" alt="">
+          <span class="desc">Kulhad masala chai, elaichi, and calm herbal infusions, brewed to order.</span>
+        </div>
+        <div class="rowitem" data-reveal>
+          <span class="num">02</span>
+          <span class="name">Coffee</span>
+          <img class="thumb" src="{% static 'img/coffee.jpg' %}" alt="">
+          <span class="desc">Espresso, creamy lattes and slow cold brew from freshly roasted beans.</span>
+        </div>
+        <div class="rowitem" data-reveal>
+          <span class="num">03</span>
+          <span class="name">Juice &amp; Health</span>
+          <img class="thumb" src="{% static 'img/juice.jpg' %}" alt="">
+          <span class="desc">Cold-pressed juices, fruit bowls and smoothies for a brighter break.</span>
+        </div>
+        <div class="rowitem" data-reveal>
+          <span class="num">04</span>
+          <span class="name">Waffles</span>
+          <img class="thumb" src="{% static 'img/waffle.jpg' %}" alt="">
+          <span class="desc">Golden Belgian waffles, sweet or savoury. Our namesake, of course.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="head" data-reveal>
+        <h2>Crowd favourites</h2>
+        <span class="n">From the menu</span>
+      </div>
+      <div class="feat">
+        {% for item in featured_items %}
+          <div class="fitem" data-reveal>
+            <span class="fn">{{ item.name }}{% if item.is_veg %} <span class="veg">VEG</span>{% endif %}</span>
+            <span class="dots"></span>
+            <span class="fp">₹{{ item.price_display }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="head" data-reveal><h2>A look inside</h2><span class="n">Gallery</span></div>
+      <div class="ed-gallery">
+        <figure class="ed-big" data-reveal><img src="{% static 'img/interior.jpg' %}" alt="The café room"><figcaption>The room</figcaption></figure>
+        <figure data-reveal data-d="1"><img src="{% static 'img/coffee.jpg' %}" alt="Coffee"><figcaption>The coffee</figcaption></figure>
+        <figure data-reveal data-d="2"><img src="{% static 'img/waffle.jpg' %}" alt="Waffles"><figcaption>The waffles</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="head" data-reveal><h2>Kind words</h2><span class="n">Reviews</span></div>
+      <div class="ed-quotes">
+        <figure class="ed-q" data-reveal><p>“My go-to study spot. The kulhad chai gets me through exam week.”</p><figcaption>Aditi R. · College student</figcaption></figure>
+        <figure class="ed-q" data-reveal data-d="1"><p>“Best waffles in Dulera, easily. Crisp outside, soft inside.”</p><figcaption>Manish P. · Regular</figcaption></figure>
+        <figure class="ed-q" data-reveal data-d="2"><p>“Clean, calm and family-friendly. We come every weekend.”</p><figcaption>Sneha &amp; family · Weekend visitors</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote" id="story">
+    <div class="wrap">
+      <p data-reveal>“A calm corner in Dulera where a chai, a coffee, or a plate of waffles always feels right.”</p>
+      <div class="by" data-reveal data-d="1">The Wow Weffles story</div>
+    </div>
+  </section>
+
+  <footer class="foot" id="visit">
+    <div class="wrap">
+      <h2 data-reveal>Find us in<br>Dulera.</h2>
+      <div class="meta">
+        <div data-reveal><div class="k">Address</div>{{ cafe.address }}</div>
+        <div data-reveal data-d="1"><div class="k">Hours</div>{{ cafe.hours }}</div>
+        <div data-reveal data-d="2"><div class="k">Phone</div>{{ cafe.phone }}</div>
+      </div>
+      <a class="btn" href="{% url 'variant_contact' variant=variant %}" data-reveal>Visit us</a>
+      <div class="copy">© {% now "Y" %} Wow Weffles, Dulera. Editorial variant.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      var nav=document.getElementById('vnav');
+      addEventListener('scroll',function(){nav.classList.toggle('stuck',scrollY>20)},{passive:true});
+      var els=document.querySelectorAll('[data-reveal]');
+      if('IntersectionObserver' in window){
+        var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+        els.forEach(function(e){io.observe(e)});
+      }else{els.forEach(function(e){e.classList.add('in')})}
+    })();
+  </script>
+  {% include "partials/variant_switcher.html" %}
+</body>
+</html>

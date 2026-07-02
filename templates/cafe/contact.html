@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Visit Us · Wow Weffles · Dulera{% endblock %}
+{% block description %}Find Wow Weffles in Dulera: address, opening hours, phone and a quick message form. Walk in for chai, coffee, juice and waffles.{% endblock %}
+
+{% block content %}
+  <section class="page-hero container">
+    <span class="eyebrow" style="justify-content:center">Come on over</span>
+    <h1>Visit Wow Weffles</h1>
+    <p class="lead">We’re in Dulera, open all week. Pop in for a quick cup or stay a while. Have a question? Send us a note below.</p>
+  </section>
+
+  <section class="section" style="padding-top:1rem">
+    <div class="container contact-grid">
+      <!-- Left: info cards + map -->
+      <div data-reveal>
+        <div class="contact-cards">
+          <div class="contact-card">
+            <span class="ic">📍</span>
+            <div><h4>Address</h4><p>{{ cafe.address }}<br><em>{{ cafe.address_note }}</em></p></div>
+          </div>
+          <div class="contact-card">
+            <span class="ic">🕘</span>
+            <div><h4>Opening Hours</h4><p>{{ cafe.hours }}</p></div>
+          </div>
+          <div class="contact-card">
+            <span class="ic">📞</span>
+            <div><h4>Call / WhatsApp</h4><p><a href="{{ cafe.phone_href }}">{{ cafe.phone }}</a><br><a href="mailto:{{ cafe.email }}">{{ cafe.email }}</a></p></div>
+          </div>
+        </div>
+
+        <div class="map-embed" style="margin-top:1.5rem; aspect-ratio:16/9; background:var(--tan-soft); color:var(--muted)">
+          {% if cafe.map_embed %}{{ cafe.map_embed|safe }}{% else %}Map preview: paste your Google Maps <code>&lt;iframe&gt;</code> embed in the admin{% endif %}
+        </div>
+      </div>
+
+      <!-- Right: contact form -->
+      <div data-reveal data-delay="1">
+        <div class="card" style="padding:clamp(1.5rem,4vw,2.5rem)">
+          <h2 style="font-size:clamp(1.6rem,3vw,2rem)">Send a message</h2>
+          <p style="margin-top:.5rem">Bookings, feedback, or just a hello. We read everything.</p>
+
+          {% if messages %}
+            {% for message in messages %}
+              <p class="form-status" style="margin-top:1rem;color:var(--olive);font-weight:700;background:#EAF0DC;padding:.75rem 1rem;border-radius:10px">{{ message }}</p>
+            {% endfor %}
+          {% endif %}
+
+          <form id="contact-form" method="post" action="{% url 'contact' %}" style="margin-top:1.5rem" novalidate>
+            {% csrf_token %}
+            <div class="field">
+              <label for="{{ form.name.id_for_label }}">Name</label>
+              {{ form.name }}
+              {% if form.name.errors %}<small style="color:#c0392b">{{ form.name.errors.0 }}</small>{% endif %}
+            </div>
+            <div class="grid cols-2" style="gap:1rem">
+              <div class="field">
+                <label for="{{ form.email.id_for_label }}">Email</label>
+                {{ form.email }}
+                {% if form.email.errors %}<small style="color:#c0392b">{{ form.email.errors.0 }}</small>{% endif %}
+              </div>
+              <div class="field">
+                <label for="{{ form.phone.id_for_label }}">Phone</label>
+                {{ form.phone }}
+              </div>
+            </div>
+            <div class="field">
+              <label for="{{ form.message.id_for_label }}">Message</label>
+              {{ form.message }}
+              {% if form.message.errors %}<small style="color:#c0392b">{{ form.message.errors.0 }}</small>{% endif %}
+            </div>
+            <button type="submit" class="btn" style="width:100%">Send message <span class="arrow">→</span></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Wow Weffles · Café in Dulera{% endblock %}</title>
+  <meta name="description" content="{% block description %}Wow Weffles is a modern café in Dulera serving fresh chai, coffee, cold-pressed juices and crispy waffles.{% endblock %}">
+  <link rel="icon" type="image/svg+xml" href="{% static 'logo/wow-weffles-mark.svg' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="{% url 'home' %}" aria-label="Wow Weffles home">
+        <img src="{% static 'logo/wow-weffles-logo.svg' %}" alt="Wow Weffles">
+      </a>
+      <nav class="nav-links" id="nav-links" aria-label="Primary">
+        <a href="{% url 'home' %}"{% if request.resolver_match.url_name == 'home' %} aria-current="page"{% endif %}>Home</a>
+        <a href="{% url 'menu' %}"{% if request.resolver_match.url_name == 'menu' %} aria-current="page"{% endif %}>Menu</a>
+        <a href="{% url 'about' %}"{% if request.resolver_match.url_name == 'about' %} aria-current="page"{% endif %}>About</a>
+        <a href="{% url 'gallery' %}"{% if request.resolver_match.url_name == 'gallery' %} aria-current="page"{% endif %}>Gallery</a>
+        <a href="{% url 'contact' %}"{% if request.resolver_match.url_name == 'contact' %} aria-current="page"{% endif %}>Visit Us</a>
+      </nav>
+      <div class="nav-cta">
+        {% block nav_cta %}<a href="{% url 'menu' %}" class="btn">See the Menu</a>{% endblock %}
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links"><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="{% url 'home' %}" aria-label="Wow Weffles home"><img src="{% static 'logo/wow-weffles-logo-white.svg' %}" alt="Wow Weffles"></a>
+          <p>A modern café in Dulera serving fresh chai, coffee, cold-pressed juice and crispy waffles, for everyone.</p>
+          <div class="socials">
+            <a href="{{ cafe.instagram|default:'#' }}" aria-label="Instagram">◎</a>
+            <a href="{{ cafe.facebook|default:'#' }}" aria-label="Facebook">f</a>
+            <a href="{{ cafe.whatsapp|default:'#' }}" aria-label="WhatsApp">✆</a>
+          </div>
+        </div>
+        <div>
+          <h5>Explore</h5>
+          <nav class="footer-links" aria-label="Footer">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'menu' %}">Menu</a>
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'gallery' %}">Gallery</a>
+            <a href="{% url 'contact' %}">Visit Us</a>
+          </nav>
+        </div>
+        <div>
+          <h5>Menu</h5>
+          <nav class="footer-links" aria-label="Menu categories">
+            {% for cat in nav_categories %}
+              <a href="{% url 'menu' %}#{{ cat.slug }}">{{ cat.name }}</a>
+            {% empty %}
+              <a href="{% url 'menu' %}">Full Menu</a>
+            {% endfor %}
+          </nav>
+        </div>
+        <div>
+          <h5>Visit</h5>
+          <div class="footer-links">
+            <span>{{ cafe.address|default:'Main Road, Dulera' }}</span>
+            <span>{{ cafe.hours|default:'Open daily · 9 AM – 11 PM' }}</span>
+            <a href="{{ cafe.phone_href|default:'tel:+910000000000' }}">{{ cafe.phone|default:'+91 00000 00000' }}</a>
+            <a href="mailto:{{ cafe.email|default:'hello@wowweffles.cafe' }}">{{ cafe.email|default:'hello@wowweffles.cafe' }}</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© {% now "Y" %} {{ cafe.name|default:'Wow Weffles' }}, Dulera. All rights reserved.</span>
+        <span>Fresh brews · Crisp waffles · Good company</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="to-top" aria-label="Back to top">↑</button>
+  {% include "partials/variant_switcher.html" %}
+  <script src="{% static 'js/main.js' %}" defer></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

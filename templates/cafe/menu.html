@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Menu · Wow Weffles · Dulera{% endblock %}
+{% block description %}The Wow Weffles menu: chai, coffee, cold-pressed juices, shakes, waffles and savoury bites. Fresh and made to order in Dulera.{% endblock %}
+
+{% block nav_cta %}<a href="{% url 'print_menu' %}" class="btn">Print Menu</a>{% endblock %}
+
+{% block content %}
+  <section class="page-hero container">
+    <span class="eyebrow" style="justify-content:center">The full spread</span>
+    <h1>Our Menu</h1>
+    <p class="lead">Brewed fresh, plated warm. Everything below is managed from the admin. Add items, change prices, or mark something sold-out anytime.</p>
+  </section>
+
+  <!-- Sticky category nav -->
+  <nav class="menu-nav" aria-label="Menu categories">
+    <div class="container chip-row">
+      {% for cat in categories %}
+        <a href="#{{ cat.slug }}" class="chip{% if forloop.first %} is-active{% endif %}">{{ cat.icon }} {{ cat.name }}</a>
+      {% endfor %}
+    </div>
+  </nav>
+
+  <div class="container section">
+    {% for cat in categories %}
+      <section class="menu-category" id="{{ cat.slug }}">
+        <div class="menu-category__head">
+          <span class="icon" style="width:52px;height:52px;border-radius:14px;background:var(--tan-soft);display:grid;place-items:center;font-size:1.5rem">{{ cat.icon }}</span>
+          <h2>{{ cat.name }}</h2>
+          {% if cat.tagline %}<span class="tag">{{ cat.tagline }}</span>{% endif %}
+        </div>
+        <div class="menu-columns">
+          {% for item in cat.available_items %}
+            <div class="menu-item">
+              <div>
+                <div class="mi-name">{{ item.name }}{% if item.is_veg %} <span class="badge-veg">VEG</span>{% endif %}</div>
+                {% if item.description %}<div class="mi-desc">{{ item.description }}</div>{% endif %}
+              </div>
+              <div class="mi-price">₹{{ item.price_display }}</div>
+            </div>
+          {% empty %}
+            <p class="mi-desc">No items yet. Add some in the admin.</p>
+          {% endfor %}
+        </div>
+      </section>
+      {% if not forloop.last %}<hr class="divider mt-12">{% endif %}
+    {% empty %}
+      <div class="section-head center">
+        <h2>Menu coming soon</h2>
+        <p>Add categories and items from the <a href="/admin/">admin panel</a> and they’ll appear here automatically.</p>
+      </div>
+    {% endfor %}
+
+    {% if categories %}
+    <div class="band mt-12" data-reveal>
+      <div class="band__grid">
+        <div>
+          <h2>Hungry yet?</h2>
+          <p class="lead" style="color:rgba(250,246,239,0.85)">Everything’s made fresh when you order. Drop by, or grab the printable menu.</p>
+        </div>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center">
+          <a href="{% url 'contact' %}" class="btn btn--light">Visit Us</a>
+          <a href="{% url 'print_menu' %}" class="btn btn--on-dark btn--ghost">Printable Menu (PDF)</a>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+{% endblock %}

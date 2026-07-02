@@ -1,0 +1,48 @@
+{% extends base_template %}
+{% load static %}
+
+{% block title %}Gallery · Wow Weffles{% endblock %}
+
+{% block content %}
+<section class="vp-hero">
+  <div class="wrap">
+    <span class="vp-eyebrow" data-reveal>Say cheese</span>
+    <h1 data-reveal data-d="1">The Gallery</h1>
+    <p class="vp-lead" data-reveal data-d="2">A little look at the space and the spread, from the counter to the kitchen. Tap any image to enlarge.</p>
+  </div>
+</section>
+
+<section class="vp-section">
+  <div class="wrap">
+    <div class="vp-gallery" data-reveal>
+      <figure class="g-a"><img src="{% static 'img/counter.jpg' %}" alt="The order counter"></figure>
+      <figure><img src="{% static 'img/coffee.jpg' %}" alt="A fresh coffee"></figure>
+      <figure><img src="{% static 'img/chai.jpg' %}" alt="Masala chai"></figure>
+      <figure class="g-b"><img src="{% static 'img/waffle.jpg' %}" alt="Golden waffles"></figure>
+      <figure><img src="{% static 'img/juice.jpg' %}" alt="Cold-pressed juice"></figure>
+      <figure><img src="{% static 'img/dessert.jpg' %}" alt="Sweet treats"></figure>
+      <figure class="g-a"><img src="{% static 'img/seating.jpg' %}" alt="The seating area"></figure>
+      <figure><img src="{% static 'img/interior.jpg' %}" alt="Café interior"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- self-contained lightbox (works on any variant) -->
+<div id="vplb" style="position:fixed;inset:0;z-index:130;display:none;place-items:center;padding:24px;background:rgba(20,13,8,.86);backdrop-filter:blur(6px)">
+  <button id="vplbx" aria-label="Close" style="position:absolute;top:20px;right:24px;width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;background:#FAF6EF;color:#3A281B;font-size:1.3rem">✕</button>
+  <img id="vplbimg" src="" alt="" style="max-width:min(92vw,1000px);max-height:86vh;border-radius:16px;box-shadow:0 30px 60px -20px rgba(0,0,0,.7)">
+</div>
+<script>
+  (function(){
+    var lb=document.getElementById('vplb'),img=document.getElementById('vplbimg'),x=document.getElementById('vplbx');
+    document.querySelectorAll('.vp-gallery img').forEach(function(el){
+      el.style.cursor='zoom-in';
+      el.addEventListener('click',function(){img.src=el.currentSrc||el.src;img.alt=el.alt;lb.style.display='grid';document.body.style.overflow='hidden'});
+    });
+    function close(){lb.style.display='none';document.body.style.overflow=''}
+    x.addEventListener('click',close);
+    lb.addEventListener('click',function(e){if(e.target===lb)close()});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close()});
+  })();
+</script>
+{% endblock %}
