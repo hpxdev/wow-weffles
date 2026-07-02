@@ -441,7 +441,7 @@ strong { color: var(--ink); }
 .g-wide { grid-column: span 6; }
 .g-tall { grid-row: span 2; grid-column: span 3; }
 .g-reg  { grid-column: span 3; }
-.g-big  { grid-column: 2 / span 4; grid-row: span 2; }
+.g-big  { grid-column: span 4; grid-row: span 2; }
 
 /* Lightbox */
 .lightbox {
