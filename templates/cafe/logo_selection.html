@@ -657,20 +657,6 @@
         closeLightbox();
       }
     });
-
-    // Disable developer tools detection
-    (function() {
-      let devtools = { open: false };
-      const threshold = 160;
-      
-      setInterval(function() {
-        if (window.outerWidth - window.innerWidth > threshold || 
-            window.outerHeight - window.innerHeight > threshold) {
-          devtools.open = true;
-          document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;"><h1>⚠️ Developer tools detected. Please close to continue.</h1></div>';
-        }
-      }, 500);
-    })();
   </script>
 </body>
 </html>
